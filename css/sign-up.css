@@ -1,0 +1,32 @@
+:root {
+  --the-blue: rgb(0, 92, 238);
+  --the-grey: rgb(113, 126, 149);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.sign-up-page {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+
+  /* background-color: blue; */
+  border: 5px solid blue;
+}
+
+.sign-up-page .form-div {
+  height: 80%;
+  border: 2px solid red;
+}

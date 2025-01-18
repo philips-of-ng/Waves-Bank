@@ -1,0 +1,94 @@
+:root {
+  --the-blue: rgb(0, 92, 238);
+  --the-grey: rgb(113, 126, 149);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.welcome-page {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+
+  /* background-color: blue; */
+  border: 5px solid blue;
+}
+
+.welcome-page .top {
+  height: 70%;
+  border: 2px solid green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top div {
+  text-align: center;
+}
+
+.top div img {
+  width: 80px;
+  height: 80px;
+  border: 2px solid white;
+  border-radius: 25px;
+}
+
+.top div h1 {
+  color: var(--the-blue);
+  margin: 10px 0;
+}
+
+.top div p {
+  color: var(--the-grey);
+}
+
+
+.sign-up-page .bottom {
+  height: 20%;
+  /* border: 2px solid red; */
+}
+
+.bottom .gs {
+  width: 100%;
+  display: block;
+  /* border: 2px solid green; */
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: var(--the-blue);
+  border-radius: 10px;
+  margin: 15px 0;
+  box-shadow: 0px 0px 12px 3px rgba(0, 92, 238, 0.4);
+}
+
+.bottom .lg {
+  padding: 17px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--the-blue);
+  text-decoration: none;
+}
+
+.bottom .lg i {
+  font-size: 30px;
+  padding: 20px;
+  background-color: var(--the-blue);
+  border-radius: 100%;
+  color: white;
+}
