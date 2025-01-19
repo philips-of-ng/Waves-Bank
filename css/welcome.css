@@ -5,6 +5,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
 }
 
 body {
@@ -23,12 +24,12 @@ body {
   padding: 12px;
 
   /* background-color: blue; */
-  border: 5px solid blue;
+  /* border: 5px solid blue; */
 }
 
 .welcome-page .top {
   height: 70%;
-  border: 2px solid green;
+  /* border: 2px solid green; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,8 +87,8 @@ body {
 }
 
 .bottom .lg i {
-  font-size: 30px;
-  padding: 20px;
+  font-size: 20px;
+  padding: 10px;
   background-color: var(--the-blue);
   border-radius: 100%;
   color: white;

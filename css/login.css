@@ -5,7 +5,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Poppins';
 }
 
 body {
@@ -13,7 +13,8 @@ body {
   margin: 0;
 }
 
-.sign-up-page {
+
+.login-page {
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
@@ -28,7 +29,8 @@ body {
   /* border: 5px solid blue; */
 }
 
-.sign-up-page .top-div {
+
+.login-page .top-div {
   height: 60px;
   width: 100%;
   /* border: 2px solid rebeccapurple; */
@@ -50,18 +52,23 @@ body {
   border: none;
 }
 
-
-.sign-up-page .form-div {
-  /* height: 80%; */
-  /* border: 2px solid red; */
-  /* margin-bottom: 130px; */
-}
-
-.form-div > div:nth-of-type(1) {
+.login-page .intro {
   text-align: center;
 }
 
 
+.login-page form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75%;
+  /* border: 2px solid red; */
+}
+
+.login-page form .form-body {
+  /* border: 2px solid green; */
+  margin: 50px 0;
+}
 
 .one-input-div {
   /* border: 2px solid red; */
@@ -84,9 +91,13 @@ body {
   border-bottom: 1.5px solid var(--the-grey);
 }
 
-.submit-div {
-  /* margin-top: 50px; */
-}
+
+
+
+
+
+
+
 
 
 .submit-div p {
@@ -108,3 +119,23 @@ body {
   box-shadow: 0px 0px 12px 3px rgba(0, 92, 238, 0.4);
   border: none;
 }
+
+.submit-div .lg {
+  padding: 17px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--the-blue);
+  text-decoration: none;
+}
+
+.submit-div .lg i {
+  font-size: 30px;
+  padding: 20px;
+  background-color: var(--the-blue);
+  border-radius: 100%;
+  color: white;
+}
+
