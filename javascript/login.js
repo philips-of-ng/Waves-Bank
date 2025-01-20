@@ -42,6 +42,10 @@ const loginUser = async () => {
     setSignInLoading(true)
     const { email, password } = getDetails()
     const response = await signInWithEmailAndPassword(auth, email, password)
+    if (response.user) {
+      alert('Sign in successful')
+      window.location.href = '../auth/VerifyPin.html'
+    }
     console.log(response);
   } catch (error) {
     console.log('Error login in', error);
