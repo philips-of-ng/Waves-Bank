@@ -1,0 +1,100 @@
+:root {
+  --the-blue: rgb(0, 92, 238);
+  --the-grey: rgb(113, 126, 149);
+  --the-light-blue: rgb(128, 173, 247);
+  --the-lighter-blue: rgb(238, 242, 248);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.home-page {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  padding-top: 0;
+
+  background-color: var(--the-lighter-blue);
+  /* border: 5px solid blue; */
+}
+
+.home-page .bottom-nav {
+  padding-bottom: 20px;
+  /* border: 3px solid red; */
+  display: grid !important;
+  /* justify-content: space-between; */
+  /* grid-template-columns: repeat(4, 1fr); */
+}
+
+/* CSS FOR THE BOTTOM NAV */
+.bottom-nav ul {
+  padding: 0 !important;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+}
+
+.bottom-nav ul li {
+  text-align: center;
+  /* border: 2px solid green; */
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-nav ul li .active {
+  text-align: center;
+  border: 2px solid red;
+  background-color: var(--the-blue);
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--the-blue) !important;
+  color: white;
+  border-radius: 20px;
+}
+.bottom-nav ul li .active i {
+  color: white;
+}
+
+.bottom-nav ul li button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.bottom-nav ul li button i {
+ color: var(--the-light-blue);
+}
+
+.bottom-nav ul li button {
+  text-align: center;
+  font-size: 30px;
+}
+
+/* CSS FOR THE TABS NOW */
+
+.the-content {
+  height: 85vh;
+  border: 3px solid green;
+  overflow-y: scroll;
+}
+
+
+
+
+
