@@ -153,7 +153,7 @@ onAuthStateChanged(auth, async (user) => {
       if (groupedTransactions.today.length > 0) {
         container.innerHTML += `
            <h3>Today's Transactions</h3>
-           <div id="todayContainer">
+           <div class="white-container" id="todayContainer">
 
            </div>
         `;
@@ -163,11 +163,6 @@ onAuthStateChanged(auth, async (user) => {
         groupedTransactions.today.forEach((transaction) => {
 
           const date = new Date(transaction.date)
-          const realDate = date.toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: '2-digit'
-          })
 
           const realTime = date.toLocaleTimeString(undefined, {
             hour: '2-digit',
@@ -176,7 +171,7 @@ onAuthStateChanged(auth, async (user) => {
             hour12: true
           })
 
-          
+
           todayContainer.innerHTML += `
             <div class="one-transaction">
 
@@ -201,14 +196,37 @@ onAuthStateChanged(auth, async (user) => {
 
       // Render Older Transactions
       Object.keys(groupedTransactions.older).forEach((monthYear) => {
-        container.innerHTML += `<h3>${monthYear}</h3>`;
+
+        container.innerHTML += `
+        <h5 class="mt-4">${monthYear}</h5>
+        <div class="white-container" id="olderContainer"></div>
+        `;
+
+        const olderContainer = document.getElementById('olderContainer')
         groupedTransactions.older[monthYear].forEach((transaction) => {
-          container.innerHTML += `
-            <div class="transaction">
-              <p>Type: ${transaction.type}</p>
-              <p>Amount: $${transaction.amount}</p>
-              <p>Date: ${new Date(transaction.date).toLocaleString()}</p>
-            </div>
+          const date = new Date(transaction.date)
+          const realDate = date.toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit'
+          })
+
+          olderContainer.innerHTML += `
+            <div class="one-transaction">
+
+              <div class="left">
+                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient.slice(0, 1)}` : transaction.title.slice(0, 1)}</p>
+                <div>
+                  <p>${transaction.title}</p>
+                  <span>${realDate}</span>
+                </div>
+              </div>
+
+              <div class="right">
+                ${transaction.type.toLowerCase() === 'deposit' ? `<p class='credit'>+$${transaction.amount}</p>` : `<p class='debit'>$${transaction.amount}</p>`}
+              </div>
+
+             </div>
           `;
         });
       });
