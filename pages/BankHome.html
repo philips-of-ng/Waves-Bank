@@ -22,6 +22,11 @@
 
     <div class="the-content">
       <div class="tab-content" id="myTabContent">
+
+        <!-- -----------THIS IS THE HOME PART------------ -->
+        <!-- -----------THIS IS THE HOME PART------------ -->
+        <!-- -----------THIS IS THE HOME PART------------ -->
+
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
           <div class="home-content">
@@ -51,7 +56,7 @@
                   Request
                 </a>
                 <a href="#">
-                  <i class='bx bx-transfer-alt' ></i>
+                  <i class='bx bx-transfer-alt'></i>
                   In & Out
                 </a>
                 <!-- <a href="#">
@@ -61,34 +66,120 @@
 
 
               </div>
-              
+
             </div>
 
 
             <div class="history">
               <p>Recent transactions</p>
 
-              <div>
-                <div class="one-transaction">
-                  <div class="left">
+              <div id="transactions">
 
+                <!-- <div class="one-transaction">
+
+                  <div class="left">
+                    <p>S</p>
+                    <div>
+                      <p>Salary Payment</p>
+                      <span>12 Mar 2025</span>
+                    </div>
                   </div>
 
                   <div class="right">
-
+                    <p class="credit">+$250</p>
                   </div>
-                </div>
+
+                </div> -->
+
               </div>
 
             </div>
+
+            <div class="chart-sec">
+              <p>Finances</p>
+
+              <!-- THERE MIGHT LATER BE ANOTHER CHART AFTER THIS THAT SHOWS WHATS THE MONEY IS SPENT ON -->
+              <div class="pie-chart">
+                <div class="chart-container">
+                  <div class="cc-left">
+                    <p>Inflow & Outflow</p>
+                    <span>January, 2025</span>
+                    <h2>USD 13,400</h2>
+                  </div>
+
+                  <div class="cc-right">
+                    <canvas id="transactionPieChart"></canvas>
+                  </div>
+                </div>
+
+                <div id="percentagesContainer" class="det-container">
+
+                </div>
+              </div>
+
+
+            </div>
           </div>
-          
+
         </div>
 
+
+        <!-- --------TRANSACTION HISTORY PART----------- -->
+        <!-- --------TRANSACTION HISTORY PART----------- -->
+        <!-- --------TRANSACTION HISTORY PART----------- -->
 
         <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-          <p>Here is the History tab content.</p>
+
+          <div class="trans-history-content">
+
+            <h4>Transaction History</h4>
+
+            <!-- Navigation Tabs -->
+            <ul class="nav nav-tabs" id="transactionTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button"
+                  role="tab" aria-controls="all" aria-selected="true">All</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="money-in-tab" data-bs-toggle="tab" data-bs-target="#money-in" type="button"
+                  role="tab" aria-controls="money-in" aria-selected="false"> 
+                  In</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="money-out-tab" data-bs-toggle="tab" data-bs-target="#money-out"
+                  type="button" role="tab" aria-controls="money-out" aria-selected="false">Out</button>
+              </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content mt-3" id="transactionTabContent">
+              <!-- All Transactions -->
+              <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div id="allTransactions" class="transaction-list">
+
+                  
+
+                </div>
+              </div>
+
+              <!-- Money In -->
+              <div class="tab-pane fade" id="money-in" role="tabpanel" aria-labelledby="money-in-tab">
+                <div id="moneyInTransactions" class="transaction-list"></div>
+              </div>
+
+              <!-- Money Out -->
+              <div class="tab-pane fade" id="money-out" role="tabpanel" aria-labelledby="money-out-tab">
+                <div id="moneyOutTransactions" class="transaction-list"></div>
+              </div>
+            </div>
+
+
+          </div>
+
+
         </div>
+
+
         <div class="tab-pane fade" id="cards" role="tabpanel" aria-labelledby="cards-tab">
           <p>Cards tab content goes here.</p>
         </div>
@@ -137,6 +228,7 @@
 
 
   <script type="module" src="../javascript/home.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

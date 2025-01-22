@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import { getFirestore, collection, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuQCpOAl39SwYbzIWzcKjepNcmilRpN2k",
+      authDomain: "waves-bank.firebaseapp.com",
+      projectId: "waves-bank",
+      storageBucket: "waves-bank.appspot.com",
+      messagingSenderId: "389165188354",
+      appId: "1:389165188354:web:f57be4686f20ef538cae1b",
+      measurementId: "G-XQZ14QK1W5",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth();
+
+    // Collection reference for users
+    const usersColRef = collection(db, "users");
+
+
+    // ----------------------------------
+    // ----------------------------------
+
+    const transactions = [
+      {
+        transactionId: "TXN001001",
+        userId: "USER001",
+        type: "Deposit",
+        title: "Bank Deposit",
+        amount: 5000.0,
+        balanceAfter: 15000.0,
+        status: "Successful",
+        date: "2025-01-20T10:15:30Z"
+      },
+      {
+        transactionId: "TXN001002",
+        userId: "USER001",
+        type: "Withdrawal",
+        title: "ATM Cash Withdrawal",
+        amount: 2000.0,
+        balanceAfter: 13000.0,
+        status: "Successful",
+        date: "2025-01-19T14:25:40Z"
+      },
+      {
+        transactionId: "TXN001003",
+        userId: "USER001",
+        type: "Transfer",
+        title: "Transfer to John Doe",
+        amount: 1500.0,
+        recipient: "John Doe",
+        balanceAfter: 11500.0,
+        status: "Pending",
+        date: "2025-01-18T12:05:15Z"
+      },
+      {
+        transactionId: "TXN001004",
+        userId: "USER001",
+        type: "Deposit",
+        title: "Direct Deposit",
+        amount: 10000.0,
+        balanceAfter: 21500.0,
+        status: "Successful",
+        date: "2025-01-17T09:45:20Z"
+      },
+      {
+        transactionId: "TXN001005",
+        userId: "USER001",
+        type: "Transfer",
+        title: "Transfer to Jane Smith",
+        amount: 500.0,
+        recipient: "Jane Smith",
+        balanceAfter: 21000.0,
+        status: "Failed",
+        date: "2025-01-16T15:35:50Z"
+      },
+      {
+        transactionId: "TXN001006",
+        userId: "USER001",
+        type: "Withdrawal",
+        title: "ATM Cash Withdrawal",
+        amount: 3000.0,
+        balanceAfter: 18000.0,
+        status: "Successful",
+        date: "2025-01-15T18:25:30Z"
+      },
+      {
+        transactionId: "TXN001007",
+        userId: "USER001",
+        type: "Deposit",
+        title: "Mobile Check Deposit",
+        amount: 7000.0,
+        balanceAfter: 25000.0,
+        status: "Successful",
+        date: "2025-01-14T21:45:10Z"
+      },
+      {
+        transactionId: "TXN001008",
+        userId: "USER001",
+        type: "Transfer",
+        title: "Transfer to Michael Johnson",
+        amount: 1000.0,
+        recipient: "Michael Johnson",
+        balanceAfter: 24000.0,
+        status: "Successful",
+        date: "2025-01-13T11:15:25Z"
+      },
+      {
+        transactionId: "TXN001009",
+        userId: "USER001",
+        type: "Withdrawal",
+        title: "ATM Cash Withdrawal",
+        amount: 4000.0,
+        balanceAfter: 20000.0,
+        status: "Pending",
+        date: "2025-01-12T14:30:45Z"
+      },
+      {
+        transactionId: "TXN001010",
+        userId: "USER001",
+        type: "Deposit",
+        title: "Salary Deposit",
+        amount: 15000.0,
+        balanceAfter: 35000.0,
+        status: "Successful",
+        date: "2025-01-11T13:20:35Z"
+      }
+    ];
+
+    async function addTransactions() {
+      try {
+        // Reference the document where you want to save the data
+        const docRef = doc(usersColRef, 'iTDQrNnXEnh2u3H663pWTZWtAai1');
+
+        // Save the array as a field in the document
+        await setDoc(docRef, { transactions });
+
+        console.log("Transactions successfully added to Firestore!");
+      } catch (error) {
+        console.error("Error adding transactions: ", error);
+      }
+    }
+
+    addTransactions();
+
+  </script>
+</body>
+
+</html>

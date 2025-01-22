@@ -90,9 +90,14 @@ body {
 
 .the-content {
   height: 85vh;
-  border: 3px solid green;
+  /* border: 3px solid green; */
   overflow-y: scroll;
 }
+
+
+/* -------CSS FOR THE HOME PART------ */
+/* -------CSS FOR THE HOME PART------ */
+/* -------CSS FOR THE HOME PART------ */
 
 .home-content {
   width: 100%;
@@ -101,7 +106,7 @@ body {
 .home-content .dashboard {
   height: 250px;
   width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   padding: 10px;
   background-image: url('../images/Screenshot\ 2025-01-18\ 221234.png');
 
@@ -110,6 +115,7 @@ body {
   justify-content: end;
   align-items: center;
   margin-bottom: 20px;
+  border-radius: 12px;
 }
 
 .dashboard .bal-prof {
@@ -185,19 +191,207 @@ body {
 }
 
 .history > div {
-  height: 400px;
-  border: 2px solid green;
+  /* height: 400px; */
+  /* border: 2px solid green; */
   border-radius: 20px;
   background-color: white;
   padding: 12px;
 }
 
+/* 
+.history > div:nth-child(1), .history > div:nth-child(2) {
+  border-bottom: 10px solid var(--the-grey);
+} */
+
+.one-transaction:nth-of-type(1), .one-transaction:nth-of-type(2) {
+  border-bottom: 1px solid var(--the-grey);
+}
+
 .one-transaction {
   height: 70px;
   width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.one-transaction .left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.one-transaction .left > p {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background-color: var(--the-lighter-blue);
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--the-blue);
+}
+
+.one-transaction .left > div p {
+  margin: 0;
+  margin-bottom: 3px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.one-transaction .left > div span {
+  color: var(--the-grey);
+  margin: 0;
+}
+
+.one-transaction .right .debit {
+  font-weight: 500;
+  color: black;
+  margin: 0;
+}
+
+.one-transaction .right .credit {
+  font-weight: 500;
+  color: rgb(25, 184, 50);
+  margin: 0;
+}
+
+/* ---------------------------------- */
+
+.chart-sec {
+  height: 300px;
+  width: 100%;
+  /* border: 2px solid red; */
+  margin: 30px 0;
+}
+
+.chart-sec > p {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.pie-chart {
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  padding-right: 0;
+}
+
+.chart-sec .chart-container {
+  width: 100%;
+  /* height: 200px; */
+  /* background-color: white; */
+  /* border: 2px solid green; */
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  /* padding: 20px 5px; */
+}
+
+.chart-container .cc-left {
+  width: 50%;
+  height: 100%;
+  /* border: 2px solid rebeccapurple; */
+}
+
+.cc-left p {
+  font-size: 18px;
+  margin: 0;
+}
+.cc-left span {
+  color: var(--the-grey);
+  margin: 12px 0;
+  display: block;
+}
+.cc-left h2 {
+  font-weight: 600;
+}
+
+.cc-right {
+  width: 50%;
+  height: 100%;
+  /* border: 2px solid brown; */
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  /* border: 2px solid blue; */
 }
 
 
+.det-container {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  overflow-x: scroll;
+  /* border-top: 1px solid var(--the-grey); */
+  padding-top: 20px;
+  margin-top: 10px;
+}
 
+.det-container p {
+  padding: 8px 20px;
+  border-radius: 20px;
+  width: fit-content !important;
+  flex-shrink: 0;
+  color: white;
+}
 
+/* ------CSS FOR THE TRANSACTION HISORY PART ------*/
+/* ------CSS FOR THE TRANSACTION HISORY PART ------*/
+/* ------CSS FOR THE TRANSACTION HISORY PART ------*/
+
+.trans-history-content {
+
+}
+
+.trans-history-content ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  /* border: 2px solid green; */
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 20px;
+  /* padding: 5px !important; */
+  position: sticky;
+  top: 10px;
+}
+
+.trans-history-content h4 {
+  margin: 10px 0;
+}
+
+.trans-history-content ul li {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 3px solid blue; */
+}
+
+.trans-history-content ul li button {
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px !important;
+  /* border: 2px solid red !important; */
+  background-color: transparent;
+}
+
+.trans-history-content ul li > .active {
+  background-color: var(--the-light-blue) !important;
+  color: white !important;
+}
