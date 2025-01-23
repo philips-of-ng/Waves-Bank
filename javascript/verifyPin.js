@@ -85,6 +85,8 @@ const verifyPin = async (enteredPin) => {
   try {
     const docSnap = await getDoc(doc(usersColRef, userUID));
     const originalPin = docSnap.data().pin;
+    console.log(docSnap.data());
+    
     console.log('Original pin', originalPin);
 
     const isMatch = (originalPin == enteredPin);
