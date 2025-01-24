@@ -152,7 +152,7 @@ onAuthStateChanged(auth, async (user) => {
       // Render Today's Transactions
       if (groupedTransactions.today.length > 0) {
         container.innerHTML += `
-           <h5 class="fw-bold">Today's Transactions</h5>
+           <h5 class="mt-4 fw-bold">Today's transactions</h5>
            <div class="white-container" id="todayContainer">
 
            </div>
@@ -231,116 +231,131 @@ onAuthStateChanged(auth, async (user) => {
         });
       });
     };
-    // Example Call
     const grouped = processTransactions(userData.transactions);
     renderTransactions(grouped);
 
-
-    // --------------------------------------
-    // JS FOR FILTERING INCOMING AND OUTGOING TRANSACTIONS
-    // --------------------------------------
-
     const filterTransactions = (transactions, category) => {
-      console.log('before filtering', transactions);
-      
-      const fiteredTransactions = transactions.filter(transaction =>
-        category === 'incoming' ? transaction.type.toLowerCase() === 'deposit' :
-          category === 'outgoing' ? transaction.type.toLowerCase() === 'transfer' || transaction.type.toLowerCase() === 'withdrawal' : false
-      )
+      console.log("Before Filtering:", transactions);
 
-      console.log('Filtered Trans', fiteredTransactions);
-      return fiteredTransactions
-    }
+      if (!transactions || !Array.isArray(transactions)) {
+        console.error("Invalid transactions data:", transactions);
+        return [];
+      }
 
-    const groupTransactionsByDate = (transactions) => {
-      console.log('dbg', transactions);
-      
-      const today = new Date().toISOString().slice(0, 10)
+      return transactions.filter(transaction =>
+        category === 'incoming'
+          ? transaction.type.toLowerCase() === 'deposit'
+          : category === 'outgoing'
+            ? ['transfer', 'withdrawal'].includes(transaction.type.toLowerCase())
+            : false
+      );
+    };
 
-      const grouped = transactions.reduce((acc, transaction) => {
-        const transactionDate = transaction.date.slice(0, 10); // Extract date only
+    const groupTransactionsByDate = (transactions = []) => {
+      console.log("Grouping Transactions:", transactions);
+
+      if (!Array.isArray(transactions)) {
+        console.error("Expected array for grouping but received:", transactions);
+        return { today: [], older: {} };
+      }
+
+      const today = new Date().toISOString().slice(0, 10);
+      return transactions.reduce((acc, transaction) => {
+        const transactionDate = transaction.date.slice(0, 10);
         const monthYear = new Date(transaction.date).toLocaleString(undefined, { year: 'numeric', month: 'long' });
 
         if (transactionDate === today) {
           acc.today.push(transaction);
         } else {
-          if (!acc.older[monthYear]) acc.older[monthYear] = [];
+          acc.older[monthYear] = acc.older[monthYear] || [];
           acc.older[monthYear].push(transaction);
         }
         return acc;
       }, { today: [], older: {} });
-
-      console.log('GroupedTransactions', grouped);
-      
-      return grouped
-    }
-
+    };
 
     const renderINOUTTransactions = (groupedTransactions, containerId, inOrOut) => {
-      console.log('render', groupedTransactions);
-      
-      const container = document.getElementById(containerId)
-      container.innerHTML = ''
+      console.log("Rendering Transactions:", groupedTransactions);
+      console.log('Grouped Transactions Today:', groupedTransactions.today);
+      console.log('Grouped Older Transactions:', groupedTransactions.older);
+
+
+      const container = document.getElementById(containerId);
+      if (!container) {
+        console.error(`Container '${containerId}' not found.`);
+        return;
+      }
+
+      container.innerHTML = '';
 
       if (groupedTransactions.today.length > 0) {
         container.innerHTML += `
-        <h3>Today's Transactions</h3>
-        <div id="${inOrOut}" class="white-container">
-        
-        </div>
-        `
+          <h3>Today's Transactions</h3>
+          <div id="${inOrOut}-today" class="white-container"></div>
+        `;
+        const todayContainer = document.getElementById(`${inOrOut}-today`);
 
-        const whiteContainer = document.getElementById(inOrOut)
+        groupedTransactions.today.forEach(transaction => {
+          const date = new Date(transaction.date);
+          const realTime = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 
-        groupedTransactions.today.forEach((transaction => {
-          const date = new Date(transaction.date)
-
-          const realTime = date.toLocaleTimeString(undefined, {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-          })
-
-          whiteContainer.innerHTML += `
+          todayContainer.innerHTML += `
             <div class="one-transaction">
-
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient.slice(0, 1)}` : transaction.title.slice(0, 1)}</p>
+                <p>${transaction.type.toLowerCase() === 'transfer' ? transaction.recipient[0] : transaction.title[0]}</p>
                 <div>
                   <p>${transaction.title}</p>
                   <span>${realTime}</span>
                 </div>
               </div>
-
               <div class="right">
-                ${transaction.type.toLowerCase() === 'deposit' ? `<p class='credit'>+$${transaction.amount}</p>` : `<p class='debit'>$${transaction.amount}</p>`}
+                ${transaction.type.toLowerCase() === 'deposit' ? `<p class="credit">+$${transaction.amount}</p>` : `<p class="debit">-$${transaction.amount}</p>`}
               </div>
-
-             </div>
-          `
-        }))
+            </div>
+          `;
+        });
       }
 
+      Object.entries(groupedTransactions.older).forEach(([monthYear, transactions]) => {
+        container.innerHTML += `
+          <h5 class="mt-4 fw-bold">${monthYear}</h5>
+          <div id="${inOrOut}-${monthYear}" class="white-container"></div>
+        `;
+        const monthContainer = document.getElementById(`${inOrOut}-${monthYear}`);
 
-      Object.keys(groupedTransactions.older).forEach(monthYear => {
-        container.innerHTML += `<h3>${monthYear}</h3>`;
-        groupedTransactions.older[monthYear].forEach(transaction => {
-          container.innerHTML += `<p>${transaction.title} - $${transaction.amount}</p>`;
+        transactions.forEach(transaction => {
+          const date = new Date(transaction.date);
+          const realTime = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+
+          monthContainer.innerHTML += `
+            <div class="one-transaction">
+              <div class="left">
+                <p>${transaction.type.toLowerCase() === 'transfer' ? transaction.recipient[0] : transaction.title[0]}</p>
+                <div>
+                  <p>${transaction.title}</p>
+                  <span>${realTime}</span>
+                </div>
+              </div>
+              <div class="right">
+                ${transaction.type.toLowerCase() === 'deposit' ? `<p class="credit">+$${transaction.amount}</p>` : `<p class="debit">$${transaction.amount}</p>`}
+              </div>
+            </div>
+          `;
         });
       });
-    }
+    };
+
+    // Usage
+    const incomingTransactions = filterTransactions(userData.transactions, 'incoming');
+    const outgoingTransactions = filterTransactions(userData.transactions, 'outgoing');
+
+    const groupedIncoming = groupTransactionsByDate(incomingTransactions);
+    const groupedOutgoing = groupTransactionsByDate(outgoingTransactions);
+
+    renderINOUTTransactions(groupedIncoming, 'moneyInTransactions', 'inTrans');
+    renderINOUTTransactions(groupedOutgoing, 'moneyOutTransactions', 'outTrans');
 
 
-    const incomingTransactions = filterTransactions(userData.transactions, 'incoming')
-    const outgoingTransactions = filterTransactions(userData.transactions, 'outgoing')
-
-
-    const groupedIncoming = groupTransactionsByDate(incomingTransactions)
-    const groupedOutgoing = groupTransactionsByDate(outgoingTransactions)
-
-    renderINOUTTransactions(groupedIncoming, 'moneyInTransactions', 'inTrans')
-    renderINOUTTransactions(groupedOutgoing, 'moneyOutTransactions', 'outTrans')
 
   } else {
     console.log('No user');
