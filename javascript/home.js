@@ -29,6 +29,32 @@ const usersColRef = collection(db, "users");
 let userData = null;
 let theProcessedTransactions = null
 
+
+const logoutBtn = document.getElementById('log-out')
+
+console.log('Logout button', logoutBtn);
+
+const signOutUser = async () => {
+  try {
+    await signOut(auth)
+
+    console.log('User signed out');
+    
+    window.location.href = '../auth/login.html'
+  } catch (error) {
+    console.log('Error loging out', error);
+    
+  }
+}
+
+logoutBtn.addEventListener('click', (e) => {
+  e.preventDefault()
+
+  signOutUser()
+})
+
+
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     try {
@@ -43,6 +69,11 @@ onAuthStateChanged(auth, async (user) => {
         // Call DisplayHomeTransactions after userData is populated
         DisplayHomeTransactions(userData.transactions);
 
+        const balanceElement = document.getElementById('balanceElement')
+        const nameShow = document.getElementById('name-shower')
+
+        nameShow.textContent = `${userData.fullName}`
+        balanceElement.textContent = `USD ${userData.balance}`
 
         if (userData.transactions && userData.transactions.length > 0) {
           const transactionCounts = userData.transactions.reduce((acc, transaction) => {
@@ -176,7 +207,9 @@ onAuthStateChanged(auth, async (user) => {
             <div class="one-transaction">
 
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient.slice(0, 1)}` : transaction.title.slice(0, 1)}</p>
+
+                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
+
                 <div>
                   <p>${transaction.title}</p>
                   <span>${realTime}</span>
@@ -431,6 +464,9 @@ new Chart(ctx, {
     }
   }
 })
+
+
+
 
 
 
