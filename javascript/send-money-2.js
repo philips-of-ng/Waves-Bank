@@ -84,6 +84,32 @@ onAuthStateChanged(auth, async (user) => {
 
         fetchUserByAccountNumber(accountNumber)
 
+        
+        const firstPage = document.getElementById('first-page')
+        const secondPage = document.getElementById('second-page')
+
+        const sendMoneyPrep = async (accountNumber, amount) => {
+
+          console.log('reached');
+
+          //CALCULATE THE FEE
+          const fee = 0.005 * amount
+          const totalAmount = amount + fee
+
+          if (userData.balance < totalAmount) {
+            console.log('INSUFFICIENT FUNDS');
+            return
+          }
+
+          firstPage.classList.remove('show')
+          firstPage.classList.add('hidden')
+
+          secondPage.classList.remove('hidden')
+          secondPage.classList.add('show')
+
+        }
+
+        
 
 
         const sendMoney = async (accountNumber, amount) => {
@@ -105,8 +131,6 @@ onAuthStateChanged(auth, async (user) => {
 
             //get ready to push info to the user too
             const userRef = doc(db, 'users', id)
-
-
 
 
             //check if the user has enough money
@@ -175,11 +199,11 @@ onAuthStateChanged(auth, async (user) => {
           const amountInput = document.getElementById('amount')
           const amount = Number(amountInput.value)
 
-          const transactionDetails = {
-            type: 'deposit',
-          }
+          
 
-          sendMoney(accountNumber, amount)
+          sendMoneyPrep(accountNumber, amount)
+
+          // sendMoney(accountNumber, amount)
         })
 
 
