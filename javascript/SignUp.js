@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
 
@@ -49,8 +49,22 @@ const getDetails = () => {
   };
 };
 
-// Create a New Account
+const generateAccountNumber = async () => {
+  const prefix = '00'
+  const randomNumber = Math.floor(Math.random() * 90000000) + 10000000;
+  const accountNumber = prefix + randomNumber.toString()
 
+  const q = query(usersColRef, where('accountNumber', '==', accountNumber))
+  const querySnap = await getDocs(q)
+
+  if (!querySnap.empty) {
+    return generateAccountNumber()
+  }
+
+  return accountNumber
+}
+
+// Create a New Account
 const [getSignUpLoading, setSignUpLoading] = createState(false)
 
 const createAccount = async () => {
@@ -61,14 +75,25 @@ const createAccount = async () => {
 
     // Create user with email and password
     const response = await createUserWithEmailAndPassword(auth, email, password);
-
     console.log("Response from creating account:", response);
 
+    const accountNumber = await generateAccountNumber()
+
     // Save additional user information in Firestore
+    const payLoad = {
+      email,
+      fullName,
+      phoneNumber,
+      nationality,
+      gender,
+      accountNumber,
+      balance: 500
+    }
     const docRef = doc(usersColRef, response.user.uid);
-    await setDoc(docRef, { email, fullName, phoneNumber, nationality, gender });
+    await setDoc(docRef, payLoad);
 
     alert("Account created successfully!");
+    window.location.href = '../auth/createPin.html'
   } catch (error) {
     console.error("Error creating user account:", error);
     alert(`Error: ${error.message}`);

@@ -1,0 +1,116 @@
+:root {
+  --the-blue: rgb(0, 92, 238);
+  --the-grey: rgb(113, 126, 149);
+  --the-light-blue: rgb(128, 173, 247);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.create-pin-page {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+  padding: 12px;
+  padding-top: 0;
+
+  background-color: var(--the-blue);
+  /* border: 5px solid blue; */
+}
+
+.create-pin-page .top-div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 15%;
+}
+
+.top-div h1 {
+  font-weight: 500;
+}
+
+
+.create-pin-page .main-div {
+  height: 80%;
+  /* border: 2px solid white; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: white;
+}
+
+.pin-top {
+  text-align: center;
+}
+
+.pin-top > p:nth-of-type(1) {
+  font-size: 20px;
+}
+
+.pin-top > p:nth-of-type(2) {
+  font-size: 15px;
+}
+
+.pin-top a {
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
+}
+
+.pin-input {
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.pin-input .dot {
+  display: block;
+  height:   25px;
+  width: 25px;
+  /* border: 1px solid green; */
+  border-radius: 100%;
+  background-color: var(--the-light-blue);
+}
+
+.filled-dot {
+  background-color: white !important;
+}
+
+
+.keypad {
+  /* height: 400px; */
+  /* border: 2px solid green; */
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+
+.keypad button {
+  font-size: 25px;
+  border: none;
+  /* height: fit-content; */
+  background-color: transparent;
+  color: white;
+  padding: 20px 0;
+}
+
+

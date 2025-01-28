@@ -126,6 +126,7 @@ onAuthStateChanged(auth, async (user) => {
               date: new Date().toISOString(),
               fee: fee,
               title: `Transfer to ${recipientDoc.data().fullName}`,
+              recipient: recipientDoc.data().fullName,
               status: 'Successful',
               transactionId: transactionId
             }
@@ -135,7 +136,8 @@ onAuthStateChanged(auth, async (user) => {
               amount: amount,
               date: new Date().toISOString(),
               title: `Trf from ${userData.fullName}`,
-              transactionId: transactionId
+              transactionId: transactionId,
+              sender: userData.fullName
             }
 
 

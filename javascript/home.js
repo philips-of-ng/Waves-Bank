@@ -39,11 +39,11 @@ const signOutUser = async () => {
     await signOut(auth)
 
     console.log('User signed out');
-    
+
     window.location.href = '../auth/login.html'
   } catch (error) {
     console.log('Error loging out', error);
-    
+
   }
 }
 
@@ -66,8 +66,16 @@ onAuthStateChanged(auth, async (user) => {
         userData = docSnap.data();
         console.log('Transactions from user data:', userData.transactions);
 
+        const sortTransactionsByDate = (array) => {
+          const sortedByDate = array.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date)
+          })
+    
+          return sortedByDate
+        }
+
         // Call DisplayHomeTransactions after userData is populated
-        DisplayHomeTransactions(userData.transactions);
+        DisplayHomeTransactions(sortTransactionsByDate(userData.transactions));
 
         const balanceElement = document.getElementById('balanceElement')
         const nameShow = document.getElementById('name-shower')
@@ -208,7 +216,7 @@ onAuthStateChanged(auth, async (user) => {
 
               <div class="left">
 
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
+                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.sender.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
 
                 <div>
                   <p>${transaction.title}</p>
@@ -248,7 +256,8 @@ onAuthStateChanged(auth, async (user) => {
             <div class="one-transaction">
 
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient.slice(0, 1)}` : transaction.title.slice(0, 1)}</p>
+                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
+
                 <div>
                   <p>${transaction.title}</p>
                   <span>${realDate}</span>
@@ -264,7 +273,16 @@ onAuthStateChanged(auth, async (user) => {
         });
       });
     };
-    const grouped = processTransactions(userData.transactions);
+
+    const sortTransactionsByDate = (array) => {
+      const sortedByDate = array.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date)
+      })
+
+      return sortedByDate
+    }
+
+    const grouped = processTransactions(sortTransactionsByDate(userData.transactions));
     renderTransactions(grouped);
 
     const filterTransactions = (transactions, category) => {
@@ -335,7 +353,8 @@ onAuthStateChanged(auth, async (user) => {
           todayContainer.innerHTML += `
             <div class="one-transaction">
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? transaction.recipient[0] : transaction.title[0]}</p>
+                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.sender.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
+
                 <div>
                   <p>${transaction.title}</p>
                   <span>${realTime}</span>
@@ -363,7 +382,7 @@ onAuthStateChanged(auth, async (user) => {
           monthContainer.innerHTML += `
             <div class="one-transaction">
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? transaction.recipient[0] : transaction.title[0]}</p>
+                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
                 <div>
                   <p>${transaction.title}</p>
                   <span>${realTime}</span>
@@ -377,6 +396,8 @@ onAuthStateChanged(auth, async (user) => {
         });
       });
     };
+
+
 
     // Usage
     const incomingTransactions = filterTransactions(userData.transactions, 'incoming');
@@ -440,30 +461,30 @@ const DisplayHomeTransactions = (transactions) => {
 
 // JS FOR THE PIE CHART
 
-const ctx = document.getElementById('transactionPieChart').getContext('2d')
+// const ctx = document.getElementById('transactionPieChart').getContext('2d')
 
-const labels = Object.keys(transactionCounts)
-const data = Object.values(transactionCounts)
-const colors = ['red', 'blue', 'green']
+// const labels = Object.keys(transactionCounts)
+// const data = Object.values(transactionCounts)
+// const colors = ['red', 'blue', 'green']
 
-new Chart(ctx, {
-  type: 'pie',
-  data: {
-    labels: labels,
-    datasets: [{
-      data: data,
-      backgroundColor: colors,
-    }],
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }
-  }
-})
+// new Chart(ctx, {
+//   type: 'pie',
+//   data: {
+//     labels: labels,
+//     datasets: [{
+//       data: data,
+//       backgroundColor: colors,
+//     }],
+//     options: {
+//       responsive: true,
+//       plugins: {
+//         legend: {
+//           position: 'bottom'
+//         }
+//       }
+//     }
+//   }
+// })
 
 
 
