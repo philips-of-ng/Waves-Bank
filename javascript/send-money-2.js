@@ -34,11 +34,16 @@ function getURLParam(param) {
 
 
 let userData = null
+let UniversalFoundUserInfo = null
+let universalTransactionDetails = null
+let universalUserID = null
+
 onAuthStateChanged(auth, async (user) => {
 
   if (user) {
     try {
       const id = user.uid;
+      universalUserID = id
       const docSnap = await getDoc(doc(usersColRef, id));
       console.log('User from auth:', user);
 
@@ -65,6 +70,7 @@ onAuthStateChanged(auth, async (user) => {
             const userDoc = querySnap.docs[0];
             const foundUser = userDoc;
             const foundUserInfo = userDoc.data()
+            UniversalFoundUserInfo = foundUserInfo
 
             console.log("User ID:", userDoc.id);
             console.log("User Data:", foundUserInfo);
@@ -84,11 +90,27 @@ onAuthStateChanged(auth, async (user) => {
 
         fetchUserByAccountNumber(accountNumber)
 
-        
+
         const firstPage = document.getElementById('first-page')
         const secondPage = document.getElementById('second-page')
 
         const sendMoneyPrep = async (accountNumber, amount) => {
+
+          universalTransactionDetails = {
+            accountNumber: accountNumber,
+            amount: amount
+          }
+
+          //Rendering for second page
+
+          const cAmount = document.getElementById('cAmount')
+          const cTo = document.getElementById('cTo')
+          const cFor = document.getElementById('cFor')
+
+          cAmount.textContent = `${universalTransactionDetails.amount}`
+          cTo.textContent = `${UniversalFoundUserInfo.fullName}`
+          cFor.textContent = `Nothing for now`
+
 
           console.log('reached');
 
@@ -109,87 +131,9 @@ onAuthStateChanged(auth, async (user) => {
 
         }
 
-        
 
 
-        const sendMoney = async (accountNumber, amount) => {
-          const params = { accountNumber, amount }
-          console.log('params', params);
 
-          try {
-            //Querying the db to get the recipient details
-            const q = query(usersColRef, where("accountNumber", "==", accountNumber));
-            const querySnapshot = await getDocs(q);
-            if (querySnapshot.empty) {
-              console.log("No user found with this account number.");
-              return;
-            }
-
-            // Fetch the recipient document (assuming accountNumber is unique)
-            const recipientDoc = querySnapshot.docs[0];
-            const recipientRef = doc(db, "users", recipientDoc.id);
-
-            //get ready to push info to the user too
-            const userRef = doc(db, 'users', id)
-
-
-            //check if the user has enough money
-            if (userData.balance < amount) {
-              alert('Insufficient balance')
-              return
-            }
-
-            //Information about the transactions
-            const transactionId = 'txn_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-            const fee = 0.05 * amount
-            const totalAmount = amount + fee
-
-            const userTransactionDetails = {
-              type: 'Transfer',
-              amount: totalAmount,
-              date: new Date().toISOString(),
-              fee: fee,
-              title: `Transfer to ${recipientDoc.data().fullName}`,
-              recipient: recipientDoc.data().fullName,
-              status: 'Successful',
-              transactionId: transactionId
-            }
-
-            const RecipientTransactionDetails = {
-              type: 'Deposit',
-              amount: amount,
-              date: new Date().toISOString(),
-              title: `Trf from ${userData.fullName}`,
-              transactionId: transactionId,
-              sender: userData.fullName
-            }
-
-
-            // Step 2: Get the current balance
-            const recipientCurrentBalance = recipientDoc.data().balance || 0;
-            console.log('current bal', recipientCurrentBalance);
-
-
-            // Step 3: Update both parties' transactions and balance
-
-            await updateDoc(userRef, {
-              transactions: arrayUnion(userTransactionDetails),
-              balance: Number(userData.balance) - totalAmount
-            })
-
-            await updateDoc(recipientRef, {
-              transactions: arrayUnion(RecipientTransactionDetails), 
-              balance: Number(recipientCurrentBalance) + amount
-            });
-
-            console.log(`Successfully received money. Rec Updated balance: ${recipientCurrentBalance + amount}`);
-            console.log(`Successfully sent money. Sender updated balance: ${userData.balance - totalAmount}`);
-            
-
-          } catch (error) {
-            console.error("Error sending money:", error);
-          }
-        };
 
         const sendMoneyForm = document.getElementById('sendMoneyForm')
 
@@ -199,14 +143,12 @@ onAuthStateChanged(auth, async (user) => {
           const amountInput = document.getElementById('amount')
           const amount = Number(amountInput.value)
 
-          
+
 
           sendMoneyPrep(accountNumber, amount)
 
           // sendMoney(accountNumber, amount)
         })
-
-
 
 
 
@@ -219,6 +161,198 @@ onAuthStateChanged(auth, async (user) => {
   }
 
 })
+
+
+
+
+//THIS IS THE MAIN FUNCTION IN THIS FILE - ITS USED TO SEND MONEY 
+
+
+const sendMoney = async (accountNumber, amount) => {
+  const params = { accountNumber, amount }
+  console.log('params', params);
+
+  try {
+    //Querying the db to get the recipient details
+    const q = query(usersColRef, where("accountNumber", "==", accountNumber));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      console.log("No user found with this account number.");
+      return;
+    }
+
+    // Fetch the recipient document (assuming accountNumber is unique)
+    const recipientDoc = querySnapshot.docs[0];
+    const recipientRef = doc(db, "users", recipientDoc.id);
+
+    //get ready to push info to the user too
+    const userRef = doc(db, 'users', universalUserID)
+
+
+    //check if the user has enough money
+    if (userData.balance < amount) {
+      alert('Insufficient balance')
+      return
+    }
+
+    //Information about the transactions
+    const transactionId = 'txn_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+    const fee = 0.05 * amount
+    const totalAmount = amount + fee
+
+    const userTransactionDetails = {
+      type: 'Transfer',
+      amount: totalAmount,
+      date: new Date().toISOString(),
+      fee: fee,
+      title: `Transfer to ${recipientDoc.data().fullName}`,
+      recipient: recipientDoc.data().fullName,
+      status: 'Successful',
+      transactionId: transactionId
+    }
+
+    const RecipientTransactionDetails = {
+      type: 'Deposit',
+      amount: amount,
+      date: new Date().toISOString(),
+      title: `Trf from ${userData.fullName}`,
+      transactionId: transactionId,
+      sender: userData.fullName
+    }
+
+
+    // Step 2: Get the current balance
+    const recipientCurrentBalance = recipientDoc.data().balance || 0;
+    console.log('current bal', recipientCurrentBalance);
+
+
+    // Step 3: Update both parties' transactions and balance
+
+    await updateDoc(userRef, {
+      transactions: arrayUnion(userTransactionDetails),
+      balance: Number(userData.balance) - totalAmount
+    })
+
+    await updateDoc(recipientRef, {
+      transactions: arrayUnion(RecipientTransactionDetails),
+      balance: Number(recipientCurrentBalance) + amount
+    });
+
+    console.log(`Successfully received money. Rec Updated balance: ${recipientCurrentBalance + amount}`);
+    console.log(`Successfully sent money. Sender updated balance: ${userData.balance - totalAmount}`);
+
+
+  } catch (error) {
+    console.error("Error sending money:", error);
+  }
+};
+
+
+
+
+// ----------------------------------
+// ----------------------------------
+
+const dots = document.querySelectorAll('.dot');
+const keypad = document.querySelector('#keypad');
+
+
+
+let pin = ''; // Store the entered PIN
+
+keypad.addEventListener('click', (e) => {
+  const button = e.target.closest('.key');
+  if (!button) return;
+
+  const value = button.textContent.trim();
+
+  // Handle backspace
+  if (button.id === 'backspace') {
+    pin = pin.slice(0, -1);
+  } else if (pin.length < 6 && !isNaN(value)) {
+    pin += value;
+    console.log(value)
+  }
+
+  // Update the dots display
+  updateDots();
+});
+
+function updateDots() {
+  dots.forEach((dot, index) => {
+    if (index < pin.length) {
+      dot.classList.add('filled-dot');
+    } else {
+      dot.classList.remove('filled-dot');
+    }
+  });
+}
+
+let userUID = null
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log(user.uid);
+    userUID = user.uid
+  } else {
+    window.location.href = '../auth/Login.html'
+  }
+})
+
+
+const verifyBtn = document.getElementById('verify')
+let failedAttempts = 0;
+const maxAttempts = 3;
+
+const verifyPin = async (enteredPin) => {
+  if (enteredPin.length < 6) {
+    alert('Incomplete Pin');
+    return;
+  }
+
+  console.log('Pin:', enteredPin);
+  console.log(auth.currentUser.uid);
+
+  try {
+    const docSnap = await getDoc(doc(usersColRef, userUID));
+    const originalPin = docSnap.data().pin;
+    console.log(docSnap.data());
+
+    console.log('Original pin', originalPin);
+
+    const isMatch = (originalPin == enteredPin);
+
+    if (isMatch) {
+      alert('PIN VERIFIED');
+
+      sendMoney(universalTransactionDetails.accountNumber, universalTransactionDetails.amount)
+
+
+      
+      failedAttempts = 0;
+    } else {
+      failedAttempts++;
+      alert('WRONG PIN');
+
+      if (failedAttempts >= maxAttempts) {
+
+        alert('Too many failed attempts. Logging out...');
+        signOut(auth);
+        failedAttempts = 0;
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+verifyBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  verifyPin(pin);
+});
+
+
+
+
 
 
 
