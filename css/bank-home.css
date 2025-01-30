@@ -32,6 +32,7 @@ body {
 
 .home-page .bottom-nav {
   padding-bottom: 20px;
+  /* border: 2px solid red; */
   /* border: 3px solid red; */
   display: grid !important;
   /* justify-content: space-between; */
@@ -56,18 +57,21 @@ body {
 
 .bottom-nav ul li .active {
   text-align: center;
-  border: 2px solid red;
-  background-color: var(--the-blue);
+  /* border: 2px solid red !important; */
+  /* background-color: white !important; */
   color: white;
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: var(--the-blue) !important;
+  /* background-color: var(--the-blue) !important; */
   color: white;
   border-radius: 20px;
+  border: none;
+  background-color: transparent !important;
 }
 .bottom-nav ul li .active i {
-  color: white;
+  color: var(--the-blue);
+  font-size: 40px;
 }
 
 .bottom-nav ul li button {
@@ -89,7 +93,7 @@ body {
 /* CSS FOR THE TABS NOW */
 
 .the-content {
-  height: 85vh;
+  height: 87vh;
   /* border: 3px solid green; */
   overflow-y: scroll;
 }
@@ -221,10 +225,10 @@ body {
 .one-transaction .left {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
-.one-transaction .left > p {
+.one-transaction .left > p, .one-transaction .left > a {
   width: 55px;
   height: 55px;
   display: flex;
@@ -235,6 +239,7 @@ body {
   border-radius: 8px;
   font-weight: 500;
   color: var(--the-blue);
+  text-decoration: none;
 }
 
 .one-transaction .left > div p {
@@ -248,6 +253,7 @@ body {
   color: var(--the-grey);
   margin: 0;
 }
+
 
 .one-transaction .right .debit {
   font-weight: 500;

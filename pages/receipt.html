@@ -36,34 +36,34 @@
         </div>
 
         <h6>Transaction Successful</h6>
-        <h1>USD 800.00</h1>
+        <h1>USD <span id="dAmount"></span></h1>
       </div>
 
 
       <div class="rec-details">
         <div class="rel">
-          <img src="../images/Screenshot 2025-01-18 221234.png" alt="">
+          <img src="../images/Frame 263.png" alt="">
         </div>
 
 
         <div class="det">
-          <h5>Edun Philips</h5>
+          <h5 id="dName">Edun Philips</h5>
 
           <div class="one-det">
             <span>Amount</span>
-            <p>USD 800</p>
+            <p>USD <span id="dAmount2"></span></p>
           </div>
 
 
           <div class="one-det">
-            <span>Tax</span>
-            <p>USD 0</p>
+            <span>Fee</span>
+            <p>USD <span id="dFee"></span></p>
           </div>
 
 
           <div class="one-det">
             <span>Total</span>
-            <p>USD 800</p>
+            <p>USD <span id="dTotal"></span></p>
           </div>
 
         </div>
@@ -74,26 +74,23 @@
 
         <div class="one-det">
           <span>Payment Type</span>
-          <p>Transfer</p>
+          <p id="dTransactionType">Transfer</p>
         </div>
 
         <div class="one-det">
           <span>Status</span>
-          <p>Completed</p>
+          <p id="dStatus">Completed</p>
         </div>
 
         <div class="one-det">
           <span>Date</span>
-          <p>16 Jan 2025</p>
+          <p id="dDate">16 Jan 2025</p>
         </div>
         <div class="one-det">
           <span>Time</span>
-          <p>12:20 PM</p>
+          <p id="dTime">12:20 PM</p>
         </div>
-        <!-- <div class="one-det">
-          <span>Tax</span>
-          <p>USD 0</p>
-        </div> -->
+        
 
       </div>
 
@@ -101,13 +98,15 @@
     </div>
 
     <div class="bottom-div">
-      <a class="gs" href="">Done</a>
+      <a class="gs" href="./BankHome.html">Done</a>
     </div>
 
 
 
   </div>
 
+
+  <script type="module" src="../javascript/receipt.js"></script>
 </body>
 
 </html>

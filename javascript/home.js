@@ -31,7 +31,6 @@ let theProcessedTransactions = null
 
 
 const logoutBtn = document.getElementById('log-out')
-
 console.log('Logout button', logoutBtn);
 
 const signOutUser = async () => {
@@ -49,9 +48,12 @@ const signOutUser = async () => {
 
 logoutBtn.addEventListener('click', (e) => {
   e.preventDefault()
-
   signOutUser()
 })
+
+const navigateToReceipt = (transactionId) => {
+  window.location.href = `../pages/receipt.html?transactionId=${transactionId}`
+}
 
 
 
@@ -70,7 +72,7 @@ onAuthStateChanged(auth, async (user) => {
           const sortedByDate = array.sort((a, b) => {
             return new Date(b.date) - new Date(a.date)
           })
-    
+
           return sortedByDate
         }
 
@@ -212,11 +214,11 @@ onAuthStateChanged(auth, async (user) => {
 
 
           todayContainer.innerHTML += `
-            <div class="one-transaction">
+            <div class="one-transaction" data-transaction-id="${transaction.transactionId}">
 
               <div class="left">
 
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.sender.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
+                <a href="../pages/receipt.html?transactionId=${transaction.transactionId}">${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.sender.slice(0, 1)}` : transaction.title?.slice(0, 1)}</a>
 
                 <div>
                   <p>${transaction.title}</p>
@@ -230,6 +232,7 @@ onAuthStateChanged(auth, async (user) => {
 
              </div>
           `;
+
         });
       } else {
         container.innerHTML += `<h3>Today's Transactions</h3><p>No transactions found.</p>`;
@@ -253,10 +256,10 @@ onAuthStateChanged(auth, async (user) => {
           })
 
           olderContainer.innerHTML += `
-            <div class="one-transaction">
+            <div    class="one-transaction" data-transaction-id="${transaction.transactionId}">
 
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
+                <a href="../pages/receipt.html?transactionId=${transaction.transactionId}">${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</a>
 
                 <div>
                   <p>${transaction.title}</p>
@@ -351,10 +354,9 @@ onAuthStateChanged(auth, async (user) => {
           const realTime = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 
           todayContainer.innerHTML += `
-            <div class="one-transaction">
+            <div class="one-transaction" data-transaction-id="${transaction.transactionId}">
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.sender.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
-
+                <a href="../pages/receipt.html?transactionId=${transaction.transactionId}">${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.sender.slice(0, 1)}` : transaction.title?.slice(0, 1)}</a>
                 <div>
                   <p>${transaction.title}</p>
                   <span>${realTime}</span>
@@ -380,9 +382,9 @@ onAuthStateChanged(auth, async (user) => {
           const realTime = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 
           monthContainer.innerHTML += `
-            <div class="one-transaction">
+            <div class="one-transaction" data-transaction-id="${transaction.transactionId}">
               <div class="left">
-                <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</p>
+                <a href="../pages/receipt.html?transactionId=${transaction.transactionId}">${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</a>
                 <div>
                   <p>${transaction.title}</p>
                   <span>${realTime}</span>
@@ -436,7 +438,7 @@ const DisplayHomeTransactions = (transactions) => {
       })
 
       transactionsContainer.innerHTML += `
-        <div class="one-transaction">
+        <div    class="one-transaction" data-transaction-id="${transaction.transactionId}">
 
           <div class="left">
             <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient.slice(0, 1)}` : transaction.title.slice(0, 1)}</p>
@@ -457,6 +459,8 @@ const DisplayHomeTransactions = (transactions) => {
     transactionsContainer.innerHTML = '<p>No transactions to display.</p>';
   }
 };
+
+
 
 
 // JS FOR THE PIE CHART
