@@ -21,12 +21,11 @@ body {
   background-color: var(--the-lighter-blue);
   border: 5px solid green;
   /* padding: 12px; */
-  background-color: var(--the-blue);
+  /* background-color: var(--the-blue); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  color: white;
+  color: black;
 }
 
 
@@ -34,17 +33,23 @@ body {
   height: 60px;
   width: 100%;
   /* border: 2px solid rebeccapurple; */
-  background-color: white;
+  /* background-color: white; */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  /* margin-bottom: 10px; */
   /* position: sticky;
   top: 5px; */
   /* border-radius: 5px; */
   padding: 10px;
   /* box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3); */
 }
+
+.top-div h4 {
+  margin: 0;
+}
+
+
 
 .send-money-page h3 {
   text-align: center;
@@ -59,34 +64,97 @@ body {
 
 .main-div {
   padding: 12px;
+  padding-top: 0;
+
   border: 2px solid red;
-  height: 85vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 
 
 .acc-num-div {
   width: 100%;
+  /* border: 2px solid green; */
 }
 
-.acc-num-div input {
+.acc-num-div label input, .acc-num-div label select {
   width: 100%;
   padding: 15px 10px;
-  pointer-events: none;
-  border-radius: 30px;
+  /* pointer-events: none; */
+  border-radius: 10px;
   border: none;
+  outline: none;
+  margin-top: 10px;
+}
+
+.acc-num-div label {
+  margin: 20px 0;
+  display: block;
 }
 
 .rec-display-div {
-  height: 150px;
+  height: 120px;
   border: 2px solid red;
   margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.rec-display-div img {
+  width: 55px;
+  height: 55px;
+  border: 2px solid black;
+  border-radius: 100%;
+}
+
+.rec-display-div div p {
+  margin: 0;
 }
 
 
+.bottom-div {
+  width: 100%;
+  /* border: 2px solid black; */
+  padding: 0;
+}
+
+.bottom-div .gs {
+  width: 100%;
+  display: block;
+  /* border: 2px solid green; */
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: var(--the-blue);
+  border-radius: 10px;
+  margin: 10px 0;
+  border: none;
+  box-shadow: 0px 0px 12px 3px rgba(0, 92, 238, 0.4);
+}
+
+.bottom-div .lg {
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--the-blue);
+  text-decoration: none;
+}
+
+.bottom-div .lg i {
+  font-size: 20px;
+  padding: 10px;
+  background-color: var(--the-blue);
+  border-radius: 100%;
+  color: white;
+}
 
 
 

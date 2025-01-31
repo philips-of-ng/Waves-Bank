@@ -22,17 +22,33 @@
     <div class="top-div">
       <button><i class='bx bx-arrow-back'></i></button>
 
+      <h4>Send Money</h4>
+
       <button><i class='bx bx-question-mark'></i></button>
     </div>
 
-    <h3>Send Money</h3>
+    <!-- <h4>Send Money</h4> -->
 
     <div class="main-div">
 
       <div>
-
         <div class="acc-num-div">
-          <input placeholder="Input Recipient Account Number" id="account-input" type="text" maxlength="10">
+
+          <label for="account-input">
+            Recipient Account Number:
+            <input placeholder="Input Recipient Account Number" id="account-input" type="text" maxlength="10">
+          </label>
+
+
+          <label for="bank">
+            Recipient Bank:
+            <select name="bank" id="bank">
+              <option value="nil">Select Recipient Bank</option>
+              <option value="Waves Bank">Waves Bank</option>
+              <option value="nil">Transfer to other banks not available yet</option>
+            </select>
+          </label>
+
           <!-- <button>Search</button> -->
         </div>
 
@@ -43,22 +59,10 @@
 
 
       <div class="bottom-div">
-        <div id="keypad" class="keypad">
-          <button class="key">1</button>
-          <button class="key">2</button>
-          <button class="key">3</button>
-          <button class="key">4</button>
-          <button class="key">5</button>
-          <button class="key">6</button>
-          <button class="key">7</button>
-          <button class="key">8</button>
-          <button class="key">9</button>
-          <button id="verify" class="key"><i class='bx bx-check'></i></button>
-          <button class="key">0</button>
-          <button id="backspace" class="key"><i class='bx bx-left-arrow-alt'></i></button>
-        </div>
-      </div>
+        <button id="verify" class="gs">Confirm Recipient</button>
 
+        <a href="./Login.html" class="lg"> Cancel <i class="bx bx-right-arrow-alt"></i></a>
+      </div>
 
     </div>
 

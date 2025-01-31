@@ -30,35 +30,6 @@ const usersColRef = collection(db, "users");
 
 
 const input = document.getElementById('account-input');
-const keypad = document.getElementById('keypad');
-
-keypad.addEventListener('click', (event) => {
-  const button = event.target.closest('button'); // Ensure the click is on a button
-  if (!button) return; // If not a button, do nothing
-
-  // Get the button text
-  const buttonText = button.textContent.trim();
-
-  // Handle verify button (you can add functionality later)
-  // if (button.id === 'verify') {
-  //   console.log('Verify action:', input.value);
-  //   return;
-  // }
-
-  // Handle backspace button
-  if (button.id === 'backspace') {
-    input.value = input.value.slice(0, -1); // Remove the last character
-    return;
-  }
-
-  // Handle regular number buttons
-  if (!isNaN(buttonText)) {
-    input.value += buttonText; // Append the number to the input value
-  }
-
-});
-
-
 const fetchKey = document.getElementById('verify')
 
 fetchKey.addEventListener('click', (e) => {
@@ -90,8 +61,14 @@ const fetchUserByAccountNumber = async (accountNumber) => {
     // Update the recipient display
     const recipientDisplay = document.getElementById("rec-display-div");
     recipientDisplay.innerHTML = `
-      <h2>${foundUser.fullName}</h2>
-      <p>${foundUser.accountNumber}</p>
+      <div>
+        <img src="../images/Frame 263.png"  />
+      </div>
+
+      <div>
+        <h2>${foundUser.fullName}</h2>
+        <p>${foundUser.accountNumber}</p>
+      </div>
     `;
 
     // Add click event to navigate to SendMoney2 page

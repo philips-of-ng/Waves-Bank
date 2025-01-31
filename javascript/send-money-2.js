@@ -44,9 +44,17 @@ onAuthStateChanged(auth, async (user) => {
     
     const userDoc = querySnap.docs[0];
     UniversalFoundUserInfo = userDoc.data();
-    document.getElementById("rec-display-div").innerHTML = `
-      <h2>${UniversalFoundUserInfo.fullName}</h2>
-      <p>${UniversalFoundUserInfo.accountNumber}</p>`;
+    document.getElementById("rec-display-div").innerHTML = 
+    `
+      <div>
+        <img src="../images/Frame 263.png"  />
+      </div>
+
+      <div>
+        <h2>${UniversalFoundUserInfo.fullName}</h2>
+        <p>${UniversalFoundUserInfo.accountNumber} - Waves Bank</p>
+      </div>  
+    `;
   } catch (error) {
     console.error(error);
   }

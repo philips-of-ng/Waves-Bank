@@ -8,19 +8,13 @@
 
 
 
-
-
-
-
-
-
-
 /* ------------------------------ */
 
 :root {
   --the-blue: rgb(0, 92, 238);
   --the-grey: rgb(113, 126, 149);
   --the-light-blue: rgb(128, 173, 247);
+  --the-lighter-blue: rgb(238, 242, 248);
 }
 
 * {
@@ -32,6 +26,123 @@ body {
   padding: 0;
   margin: 0;
 }
+
+
+.first-page .top-div {
+  height: 60px;
+  width: 100%;
+  /* border: 2px solid rebeccapurple; */
+  /* background-color: white; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  /* position: sticky;
+  top: 5px; */
+  /* border-radius: 5px; */
+  padding: 10px;
+  /* box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3); */
+}
+
+.top-div button {
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+}
+
+.top-div h4 {
+  margin: 0;
+}
+
+.first-page {
+  border: 5px solid green;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--the-lighter-blue);
+}
+
+.rec-display-div {
+  height: 120px;
+  /* border: 2px solid red; */
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  width: 95%;
+  margin: 10px auto;
+  border-radius: 12px;
+  background-color: white;
+}
+
+.rec-display-div img {
+  width: 55px;
+  height: 55px;
+  border: 2px solid black;
+  border-radius: 100%;
+}
+
+.rec-display-div div p {
+  margin: 0;
+}
+
+.amount-div {
+  width: 100%;
+  height: 200px;
+  border: 2px solid green;
+  margin: 25px auto;
+  width: 95%;
+  padding: 12px;
+}
+
+.amount-div label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.amount-div .ad1 {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lime;
+}
+
+
+.amount-div .ad1 span {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.amount-div .ad1 input {
+  width: 70%;
+  font-size: 20px;
+  display: flex;
+  align-items: end;
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .verify-pin-page {
   width: 100vw;

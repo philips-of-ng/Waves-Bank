@@ -18,14 +18,36 @@
 
 <body>
 
-  <div id="first-page" class="show">
+  <div id="first-page" class="first-page show">
+
+    <div class="top-div">
+      <button><i class='bx bx-arrow-back'></i></button>
+
+      <h4>Send Money</h4>
+
+      <button><i class='bx bx-question-mark'></i></button>
+    </div>
+
 
     <div id="rec-display-div" class="rec-display-div">
 
     </div>
 
     <form id="sendMoneyForm">
-      <input id="amount" type="text" placeholder="Amount">
+
+      <div class="amount-div">
+        <label for="amount">Amount</label>
+
+        <div class="ad1">
+          <span>$</span>
+          <input id="amount" type="text" placeholder="1.00 - 10,000.00">
+        </div>
+
+        <div class="ad2">
+
+        </div>
+      </div>
+     
 
       <select name="porpose" id="purpose">
         <option value="food">Food</option>
@@ -36,6 +58,25 @@
     </form>
 
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <div id="second-page" class="hidden">
