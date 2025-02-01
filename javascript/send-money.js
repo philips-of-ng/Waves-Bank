@@ -67,7 +67,7 @@ const fetchUserByAccountNumber = async (accountNumber) => {
 
       <div>
         <h2>${foundUser.fullName}</h2>
-        <p>${foundUser.accountNumber}</p>
+        <p>${foundUser.accountNumber} - Waves Bank</p>
       </div>
     `;
 

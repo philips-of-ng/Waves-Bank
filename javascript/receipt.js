@@ -29,6 +29,7 @@ const getURLParam = (param) => new URLSearchParams(window.location.search).get(p
 const transactionId = getURLParam('transactionId')
 
 
+const dStat = document.getElementById('trans-stat')
 const dAmount = document.getElementById("dAmount");
 const dName = document.getElementById("dName");
 const dAmount2 = document.getElementById("dAmount2");
@@ -81,6 +82,7 @@ const getTransactionDetails = async (transactionId) => {
 
 
         if (foundTransaction.type.toLowerCase() == "deposit") {
+          dStat.textContent = 'Money Received'
           dAmount.textContent = foundTransaction.amount 
           dName.textContent = foundTransaction.sender 
           dAmount2.textContent = foundTransaction.amount 
@@ -91,6 +93,7 @@ const getTransactionDetails = async (transactionId) => {
           dDate.textContent = convertDate(foundTransaction.date).realDate
           dTime.textContent = convertDate(foundTransaction.date).realTime
         } else if (foundTransaction.type.toLowerCase() == 'transfer') {
+          dStat.textContent = 'Transaction Successful'
           dAmount.textContent = foundTransaction.amount 
           dName.textContent = foundTransaction.recipient 
           dAmount2.textContent = foundTransaction.amount 
@@ -101,6 +104,7 @@ const getTransactionDetails = async (transactionId) => {
           dDate.textContent = convertDate(foundTransaction.date).realDate
           dTime.textContent = convertDate(foundTransaction.date).realTime
         } else if (foundTransaction.type.toLowerCase() == 'withdrawal') {
+          dStat.textContent = 'Transaction Successful'
           dAmount.textContent = foundTransaction.amount 
           dName.textContent = foundTransaction.title 
           dAmount2.textContent = foundTransaction.amount 

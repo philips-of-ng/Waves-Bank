@@ -137,7 +137,7 @@
           <div class="trans-history-content">
 
             <h4>Transaction History</h4>
-          
+
             <!-- Navigation Tabs -->
             <ul class="nav nav-tabs" id="transactionTabs" role="tablist">
               <li class="nav-item" role="presentation">
@@ -153,7 +153,7 @@
                   type="button" role="tab" aria-controls="money-out" aria-selected="false">Out</button>
               </li>
             </ul>
-          
+
             <!-- Tab Content -->
             <div class="tab-content mt-3" id="transactionTabContent">
               <!-- All Transactions -->
@@ -162,14 +162,14 @@
                   <!-- All Transactions Content -->
                 </div>
               </div>
-          
+
               <!-- Money In -->
               <div class="tab-pane fade" id="money-in" role="tabpanel" aria-labelledby="money-in-tab">
                 <div id="moneyInTransactions" class="transaction-list">
                   <!-- Money In Transactions Content -->
                 </div>
               </div>
-          
+
               <!-- Money Out -->
               <div class="tab-pane fade" id="money-out" role="tabpanel" aria-labelledby="money-out-tab">
                 <div id="moneyOutTransactions" class="transaction-list">
@@ -177,9 +177,9 @@
                 </div>
               </div>
             </div>
-          
+
           </div>
-          
+
 
 
         </div>
@@ -217,6 +217,42 @@
           </div>
 
 
+          <!-- CARD DETAILS AND TRANSACTIONS -->
+
+          <div class="cdt">
+
+            <div class="container p-0">
+              <!-- Nav Tabs -->
+              <ul class="nav nav-tabs cdt-navs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="details-tab" data-bs-toggle="tab" data-bs-target="#details"
+                    type="button" role="tab" aria-controls="details" aria-selected="true">
+                    Details
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions"
+                    type="button" role="tab" aria-controls="transactions" aria-selected="false">
+                    Transactions
+                  </button>
+                </li>
+              </ul>
+
+              <!-- Tab Content -->
+              <div class="tab-content mt-3" id="myTabContent">
+                <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
+                  <h3>Account Details</h3>
+                  <p>This section contains user account details.</p>
+                </div>
+                <div class="tab-pane fade" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
+                  <h3>Transaction History</h3>
+                  <p>List of recent transactions will appear here.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
 
         </div>
 
@@ -225,7 +261,7 @@
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <p>Profile tab content.</p>
 
-     
+
         </div>
       </div>
     </div>

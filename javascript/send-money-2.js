@@ -72,9 +72,14 @@ const sendMoneyPrep = (accountNumber, amount) => {
   document.getElementById('second-page').classList.replace('hidden', 'show');
 };
 
-document.getElementById('sendMoneyForm').addEventListener('submit', (e) => {
+
+const sendMoneyForm = document.getElementById('sendMoneyForm')
+const amountInput = document.getElementById('amount')
+
+sendMoneyForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  sendMoneyPrep(getURLParam('accountNumber'), Number(document.getElementById('amount').value));
+
+  sendMoneyPrep(getURLParam('accountNumber'), Number(amountInput.value));
 });
 
 // Send Money Function
@@ -156,3 +161,14 @@ verifyBtn.addEventListener('click', (e) => {
   e.preventDefault();
   verifyPin(pin);
 });
+
+
+//THIS IS THE CODE FOR THE AMOUNT SUGGESTION PART
+const amountSuggest = document.querySelectorAll('.amount-suggest p')
+amountSuggest.forEach((suggestion) => {
+  suggestion.addEventListener('click', (e) => {
+    e.preventDefault()
+    amountInput.value = suggestion.textContent
+  })
+})
+

@@ -43,18 +43,27 @@
           <input id="amount" type="text" placeholder="1.00 - 10,000.00">
         </div>
 
-        <div class="ad2">
-
+        <div id="amount-suggest" class="ad2 amount-suggest">
+          <p>50</p>
+          <p>100</p>
+          <p>200</p>
+          <p>500</p>
+          <p>1000</p>
+          <p>2000</p>
+          <p>5000</p>
         </div>
       </div>
      
+      <div class="purpose-div">
+        <label for="purpose">What's the money for?</label>
+        <select name="purpose" id="purpose">
+          <option value="food">Food</option>
+          <option value="luxury">Luxury</option>
+        </select>
+      </div>
+      
 
-      <select name="porpose" id="purpose">
-        <option value="food">Food</option>
-        <option value="luxury">Luxury</option>
-      </select>
-
-      <button type="submit">send</button>
+      <button class="send-btn" type="submit">Send</button>
     </form>
 
   </div>

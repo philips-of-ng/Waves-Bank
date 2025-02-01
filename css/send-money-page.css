@@ -19,7 +19,7 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: var(--the-lighter-blue);
-  border: 5px solid green;
+  /* border: 5px solid green; */
   /* padding: 12px; */
   /* background-color: var(--the-blue); */
   display: flex;
@@ -66,7 +66,7 @@ body {
   padding: 12px;
   padding-top: 0;
 
-  border: 2px solid red;
+  /* border: 2px solid red; */
   height: 90vh;
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@ body {
 
 .rec-display-div {
   height: 120px;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   margin: 10px 0;
   display: flex;
   align-items: center;
