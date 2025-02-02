@@ -80,6 +80,7 @@ onAuthStateChanged(auth, async (user) => {
         DisplayHomeTransactions(sortTransactionsByDate(userData.transactions));
 
         const balanceElement = document.getElementById('balanceElement')
+        balanceElement2.textContent = balanceElement.textContent
         const nameShow = document.getElementById('name-shower')
 
         nameShow.textContent = `${userData.fullName}`
@@ -400,6 +401,34 @@ onAuthStateChanged(auth, async (user) => {
     };
 
 
+    //THIS IS THE CODE TO SORT OUT CARD TRANSACTIONS AND RENDER THEM
+    const getCardTransactions = array => {
+      return array.filter((item) => item.type.toLowerCase() == 'withdrawal')
+    }
+    const readyCardTransactions = getCardTransactions(sortTransactionsByDate(userData.transactions))
+    const cardTransContainer = document.getElementById('card-transactions')
+    console.log('Ready to render card transactions', readyCardTransactions);
+
+    readyCardTransactions.forEach((transaction) => {
+      const date = new Date(transaction.date);
+      const realTime = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+
+      cardTransContainer.innerHTML += `
+        <div class="one-transaction" data-transaction-id="${transaction.transactionId}">
+          <div class="left">
+            <a href="../pages/receipt.html?transactionId=${transaction.transactionId}">${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</a>
+            <div>
+              <p>${transaction.title}</p>
+              <span>${realTime}</span>
+            </div>
+          </div>
+          <div class="right">
+            ${transaction.type.toLowerCase() === 'deposit' ? `<p class="credit">+$${transaction.amount}</p>` : `<p class="debit">$${transaction.amount}</p>`}
+          </div>
+        </div>
+      `;
+    })
+
 
     // Usage
     const incomingTransactions = filterTransactions(userData.transactions, 'incoming');
@@ -422,7 +451,6 @@ onAuthStateChanged(auth, async (user) => {
 
 
 // JavaScript for the Home Tab
-
 
 
 const DisplayHomeTransactions = (transactions) => {
