@@ -76,6 +76,54 @@ onAuthStateChanged(auth, async (user) => {
           return sortedByDate
         }
 
+
+        const fullNameDisplay = document.getElementById('fullNameDisaplay')
+        const accountNumberDisplay = document.getElementById('accountNumberDisplay')
+        const accountNumberDisplay2 = document.getElementById('accountNumberDisplay2')
+        const phoneNumberDisplay = document.getElementById('phoneNumberDisplay')
+        const emailDisplay = document.getElementById('emailDisplay')
+        const homeAddressDisplay = document.getElementById('homeAddressDisplay')
+        const primaryDeviceDisplay = document.getElementById('primaryDeviceDisplay')
+
+        const displayProfileInfo = () => {
+          fullNameDisplay.textContent = userData.fullName
+          accountNumberDisplay.textContent = userData.accountNumber
+          accountNumberDisplay2.textContent = userData.accountNumber
+          phoneNumberDisplay.textContent = userData.phoneNumber || 'Nil'
+          emailDisplay.textContent = userData.email
+          homeAddressDisplay.textContent = userData.homeAddress || 'Nil'
+          primaryDeviceDisplay.textContent = getDeviceModel()
+        }
+
+        displayProfileInfo()
+
+
+
+        function getDeviceModel() {
+          let userAgent = navigator.userAgent;
+
+          if (/android/i.test(userAgent)) {
+            let match = userAgent.match(/Android\s+\d+;\s+([^)]+)\)/);
+            return match ? match[1] : "Unknown Android Device";
+          }
+
+          if (/iPhone|iPad|iPod/i.test(userAgent)) {
+            return "Apple " + (/iPhone/i.test(userAgent) ? "iPhone" : /iPad/i.test(userAgent) ? "iPad" : "iPod");
+          }
+
+          if (/Windows/i.test(userAgent)) {
+            return "Windows PC";
+          }
+
+          if (/Macintosh/i.test(userAgent)) {
+            return "Mac";
+          }
+
+          return "Unknown Device";
+        }
+
+
+
         // Call DisplayHomeTransactions after userData is populated
         DisplayHomeTransactions(sortTransactionsByDate(userData.transactions));
 
@@ -487,6 +535,14 @@ const DisplayHomeTransactions = (transactions) => {
     transactionsContainer.innerHTML = '<p>No transactions to display.</p>';
   }
 };
+
+
+//THIS IS THE RENDERING OF INFORMATION ON THE PROFILE PAGE
+
+
+console.log('hmmmm', userData);
+
+
 
 
 

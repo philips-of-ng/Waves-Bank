@@ -627,8 +627,11 @@ canvas {
   font-weight: 500;
 }
 
-.the-tabs > div ul li button:active {
+.the-tabs > div ul li button:hover {
   color: black !important;
+  color: black !important;
+  box-shadow: none;
+  border: none;
 }
 
 .the-tabs > div ul li .active {
@@ -637,6 +640,9 @@ canvas {
   border-bottom: 3px solid var(--the-blue) !important;
 }
 
+.one-pp-sec {
+  margin-bottom: 20px;
+}
 
 .one-pp-sec > p {
   color: var(--the-grey);
