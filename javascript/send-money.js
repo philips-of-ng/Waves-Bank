@@ -28,18 +28,39 @@ const usersColRef = collection(db, "users");
 
 
 
+function useState(initialValue) {
+  let state = initialValue;
+
+  function setState(newValue) {
+    state = newValue;
+    console.log("State updated:", state); // Optional: Log state changes
+  }
+
+  function getState() {
+    return state;
+  }
+
+  return [getState, setState];
+}
+
+const [getLoading, setLoading] = useState(false)
 
 const input = document.getElementById('account-input');
 const fetchKey = document.getElementById('verify')
 
+
+
 fetchKey.addEventListener('click', (e) => {
   e.preventDefault()
-
   fetchUserByAccountNumber(input.value)
+  manageChange()
 })
 
 const fetchUserByAccountNumber = async (accountNumber) => {
   try {
+    setLoading(true)
+    fetchKey.innerHTML = `<i class='bx bx-loader-alt spinner'></i>` 
+
     const q = query(usersColRef, where("accountNumber", "==", accountNumber));
 
     // Fetch the user
@@ -75,6 +96,9 @@ const fetchUserByAccountNumber = async (accountNumber) => {
     recipientDisplay.addEventListener("click", () => {
       window.location.href = `./SendMoney2.html?accountNumber=${foundUser.accountNumber}`;
     });
+
+    setLoading(false)
+    fetchKey.innerHTML = `User found` 
   } catch (error) {
     console.error("Error fetching user:", error);
   }

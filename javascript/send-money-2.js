@@ -27,24 +27,30 @@ const getURLParam = (param) => new URLSearchParams(window.location.search).get(p
 
 let userData = null, UniversalFoundUserInfo = null, universalTransactionDetails = null, universalUserID = null;
 
+const firstPage = document.getElementById('first-page')
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) return;
   try {
+    
     universalUserID = user.uid;
     const docSnap = await getDoc(doc(usersColRef, universalUserID));
     if (!docSnap.exists()) return;
     userData = docSnap.data();
 
+
     const accountNumber = getURLParam('accountNumber');
     if (!accountNumber) return;
     
+    const recipientDisplay = document.getElementById('rec-display-div')
     const q = query(usersColRef, where("accountNumber", "==", accountNumber));
     const querySnap = await getDocs(q);
     if (querySnap.empty) return console.log("No user found with this account number.");
     
     const userDoc = querySnap.docs[0];
     UniversalFoundUserInfo = userDoc.data();
-    document.getElementById("rec-display-div").innerHTML = 
+    recipientDisplay.style.justifyContent = 'start'
+    recipientDisplay.innerHTML = 
     `
       <div>
         <img src="../images/Frame 263.png"  />
@@ -55,36 +61,43 @@ onAuthStateChanged(auth, async (user) => {
         <p>${UniversalFoundUserInfo.accountNumber} - Waves Bank</p>
       </div>  
     `;
+
+
   } catch (error) {
     console.error(error);
   }
 });
 
 // Prepare Money Transfer
-const sendMoneyPrep = (accountNumber, amount) => {
-  universalTransactionDetails = { accountNumber, amount };
+const sendMoneyPrep = (accountNumber, amount, purpose) => {
+  universalTransactionDetails = { accountNumber, amount, purpose };
   const fee = 0.005 * amount, totalAmount = amount + fee;
   if (userData.balance < totalAmount) return console.log('INSUFFICIENT FUNDS');
   document.getElementById('cAmount').textContent = amount;
-  document.getElementById('cTo').textContent = UniversalFoundUserInfo.fullName;
-  document.getElementById('cFor').textContent = 'Nothing for now';
+  document.getElementById('cTo').textContent = `${UniversalFoundUserInfo.fullName} - ${UniversalFoundUserInfo.accountNumber} - Waves Bank`;
+  document.getElementById('cFor').textContent = universalTransactionDetails.purpose;
   document.getElementById('first-page').classList.replace('show', 'hidden');
   document.getElementById('second-page').classList.replace('hidden', 'show');
 };
 
 
 const sendMoneyForm = document.getElementById('sendMoneyForm')
+const sendMoneyBtn = document.getElementById('send-money-btn')
 const amountInput = document.getElementById('amount')
 
 sendMoneyForm.addEventListener('submit', (e) => {
   e.preventDefault();
-
-  sendMoneyPrep(getURLParam('accountNumber'), Number(amountInput.value));
+  const purpose = document.getElementById('purpose').value
+  sendMoneyBtn.innerHTML = `<i class='bx bx-loader-alt spinner'></i>`
+  setTimeout(() => {
+    sendMoneyPrep(getURLParam('accountNumber'), Number(amountInput.value), purpose);
+  }, 2000);
 });
 
 // Send Money Function
 const sendMoney = async (accountNumber, amount) => {
   try {
+    verifyBtn.innerHTML = `<i class='bx bx-loader-alt spinner'></i>`
     const q = query(usersColRef, where("accountNumber", "==", accountNumber));
     const querySnapshot = await getDocs(q);
     if (querySnapshot.empty) return console.log("No user found with this account number.");
@@ -116,8 +129,16 @@ const sendMoney = async (accountNumber, amount) => {
       balance: recipientBalance + amount
     });
     console.log(`Money sent! Sender: ${userData.balance - totalAmount}, Recipient: ${recipientBalance + amount}`);
+
+    setTimeout(() => {
+      window.location.href = `../pages/receipt.html?transactionId=${transactionId}`
+    }, 2000);
+
+
   } catch (error) {
     console.error("Error sending money:", error);
+  } finally {
+    verifyBtn.innerHTML = `<i class="bx bx-check"></i>`
   }
 };
 
