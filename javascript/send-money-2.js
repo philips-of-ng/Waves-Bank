@@ -27,12 +27,17 @@ const getURLParam = (param) => new URLSearchParams(window.location.search).get(p
 
 let userData = null, UniversalFoundUserInfo = null, universalTransactionDetails = null, universalUserID = null;
 
+let transactionLimits = {
+  maximum: 10000,
+  minimum: 1
+}
+
 const firstPage = document.getElementById('first-page')
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) return;
   try {
-    
+
     universalUserID = user.uid;
     const docSnap = await getDoc(doc(usersColRef, universalUserID));
     if (!docSnap.exists()) return;
@@ -41,17 +46,17 @@ onAuthStateChanged(auth, async (user) => {
 
     const accountNumber = getURLParam('accountNumber');
     if (!accountNumber) return;
-    
+
     const recipientDisplay = document.getElementById('rec-display-div')
     const q = query(usersColRef, where("accountNumber", "==", accountNumber));
     const querySnap = await getDocs(q);
     if (querySnap.empty) return console.log("No user found with this account number.");
-    
+
     const userDoc = querySnap.docs[0];
     UniversalFoundUserInfo = userDoc.data();
     recipientDisplay.style.justifyContent = 'start'
-    recipientDisplay.innerHTML = 
-    `
+    recipientDisplay.innerHTML =
+      `
       <div>
         <img src="../images/Frame 263.png"  />
       </div>
@@ -70,15 +75,61 @@ onAuthStateChanged(auth, async (user) => {
 
 // Prepare Money Transfer
 const sendMoneyPrep = (accountNumber, amount, purpose) => {
-  universalTransactionDetails = { accountNumber, amount, purpose };
-  const fee = 0.005 * amount, totalAmount = amount + fee;
-  if (userData.balance < totalAmount) return console.log('INSUFFICIENT FUNDS');
-  document.getElementById('cAmount').textContent = amount;
-  document.getElementById('cTo').textContent = `${UniversalFoundUserInfo.fullName} - ${UniversalFoundUserInfo.accountNumber} - Waves Bank`;
-  document.getElementById('cFor').textContent = universalTransactionDetails.purpose;
-  document.getElementById('first-page').classList.replace('show', 'hidden');
-  document.getElementById('second-page').classList.replace('hidden', 'show');
+
+  //PREPING THE MODAL
+
+  const warningModal = document.getElementById('warning-modal')
+  const WM_message = document.getElementById('wm-message')
+  const WM_closeBtn = document.getElementById('close-btn')
+  const WM_homeBtn = document.getElementById('home')
+
+  WM_closeBtn.addEventListener('click', () => {
+    warningModal.classList.remove('shown')
+    warningModal.classList.add('hidden')
+  })
+
+  WM_homeBtn.addEventListener('click', () => {
+    window.location.href = '../pages/BankHome.html'
+  })
+
+  function activateWarningModal(message) {
+    warningModal.classList.remove('hidden')
+    warningModal.classList.add('shown')
+    WM_message.textContent = message
+  }
+  function cancelWarningModal() {
+    warningModal.classList.add('hidden')
+    warningModal.classList.remove('show')
+  }
+  
+  try {
+    universalTransactionDetails = { accountNumber, amount, purpose };
+    const fee = 0.005 * amount, totalAmount = amount + fee;
+    if (userData.balance < totalAmount) {
+      console.log('INSUFFICIENT FUNDS');
+      throw new Error('Insuficient funds')
+    }
+    if (amount < transactionLimits.minimum || amount > transactionLimits.maximum) {
+      throw new Error('Limit issues')
+    }
+    document.getElementById('cAmount').textContent = amount;
+    document.getElementById('cTo').textContent = `${UniversalFoundUserInfo.fullName} - ${UniversalFoundUserInfo.accountNumber} - Waves Bank`;
+    document.getElementById('cFor').textContent = universalTransactionDetails.purpose;
+    document.getElementById('first-page').classList.replace('show', 'hidden');
+    document.getElementById('second-page').classList.replace('hidden', 'show');
+  } catch (error) {
+    console.log(error);
+    if (error.message.toLowerCase() == 'insuficient funds') {
+      activateWarningModal('Sorry, you have insufficient balance for this transaction, you should probably get a job...')
+      sendMoneyBtn.innerHTML = 'Send'
+      return
+    } else if (error.message.toLowerCase() == 'limit issues') {
+      activateWarningModal('Pleae make sure your transaction is withing the range: $1 - $10,000')
+      sendMoneyBtn.innerHTML = 'Send'
+    }
+  }
 };
+
 
 
 const sendMoneyForm = document.getElementById('sendMoneyForm')
@@ -101,21 +152,24 @@ const sendMoney = async (accountNumber, amount) => {
     const q = query(usersColRef, where("accountNumber", "==", accountNumber));
     const querySnapshot = await getDocs(q);
     if (querySnapshot.empty) return console.log("No user found with this account number.");
-    
+
     const recipientDoc = querySnapshot.docs[0];
     const recipientRef = doc(db, "users", recipientDoc.id);
     const userRef = doc(db, 'users', universalUserID);
 
-    if (userData.balance < amount) return alert('Insufficient balance');
+    if (userData.balance < amount) {
+      alert('Insufficient balance');
+      return
+    }
 
     const transactionId = 'txn_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
     const fee = 0.05 * amount, totalAmount = amount + fee;
     const recipientBalance = recipientDoc.data().balance || 0;
-    
+
     await updateDoc(userRef, {
       transactions: arrayUnion({
-        type: 'Transfer', amount: amount, totalAmount: totalAmount, date: new Date().toISOString(), fee: fee, 
-        title: `Transfer to ${recipientDoc.data().fullName}`, recipient: recipientDoc.data().fullName, 
+        type: 'Transfer', amount: amount, totalAmount: totalAmount, date: new Date().toISOString(), fee: fee,
+        title: `Transfer to ${recipientDoc.data().fullName}`, recipient: recipientDoc.data().fullName,
         status: 'Successful', transactionId
       }),
       balance: userData.balance - totalAmount
@@ -123,7 +177,7 @@ const sendMoney = async (accountNumber, amount) => {
 
     await updateDoc(recipientRef, {
       transactions: arrayUnion({
-        type: 'Deposit', amount, date: new Date().toISOString(), 
+        type: 'Deposit', amount, date: new Date().toISOString(),
         title: `Trf from ${userData.fullName}`, transactionId, sender: userData.fullName
       }),
       balance: recipientBalance + amount
