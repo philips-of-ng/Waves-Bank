@@ -79,10 +79,10 @@ const loginBtn = document.getElementById('submit')
 // Render function to update the UI
 function render() {
   if (getSignInLoading()) {
-    loginBtn.textContent = 'Loading';
+    loginBtn.innerHTML = `<i class='bx bx-loader-alt spinner'></i>`;
     loginBtn.disabled = true;  
   } else {
-    loginBtn.textContent = 'Sign In';
+    loginBtn.innerHTML = 'Sign In';
     loginBtn.disabled = false;
   }
 }

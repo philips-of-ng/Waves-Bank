@@ -30,27 +30,6 @@ let userData = null;
 let theProcessedTransactions = null
 
 
-const logoutBtn = document.getElementById('log-out')
-console.log('Logout button', logoutBtn);
-
-const signOutUser = async () => {
-  try {
-    await signOut(auth)
-
-    console.log('User signed out');
-
-    window.location.href = '../auth/login.html'
-  } catch (error) {
-    console.log('Error loging out', error);
-
-  }
-}
-
-logoutBtn.addEventListener('click', (e) => {
-  e.preventDefault()
-  signOutUser()
-})
-
 const navigateToReceipt = (transactionId) => {
   window.location.href = `../pages/receipt.html?transactionId=${transactionId}`
 }
@@ -81,12 +60,16 @@ onAuthStateChanged(auth, async (user) => {
         // Call DisplayHomeTransactions after userData is populated
         DisplayHomeTransactions(sortTransactionsByDate(userData.transactions));
 
-        const balanceElement = document.getElementById('balanceElement')
-        balanceElement2.textContent = balanceElement.textContent
-        const nameShow = document.getElementById('name-shower')
+        let formattedBalance = userData.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
-        nameShow.textContent = `${userData.fullName}`
-        balanceElement.textContent = `USD ${userData.balance}`
+        const balanceElement = document.getElementById('balanceElement')
+        const balanceElement2 = document.getElementById('balanceElement2')
+    
+        balanceElement2.textContent = `USD ${formattedBalance}`
+
+        balanceElement.textContent = `USD ${formattedBalance}`
+
+        
 
         if (userData.transactions && userData.transactions.length > 0) {
           const transactionCounts = userData.transactions.reduce((acc, transaction) => {

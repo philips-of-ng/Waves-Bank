@@ -121,7 +121,7 @@ const signUpBtn = document.getElementById('submit')
 function render() {
   if (getSignUpLoading()) {
     // Show loading state (e.g., "Creating Account...")
-    signUpBtn.textContent = 'Creating Account...';
+    signUpBtn.innerHTML = `<i class='bx bx-loader-alt spinner'></i>`;
     signUpBtn.disabled = true;  // Disable the button while loading
   } else {
     // Reset button text to original state and enable it

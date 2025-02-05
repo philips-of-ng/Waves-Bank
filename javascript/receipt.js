@@ -83,33 +83,33 @@ const getTransactionDetails = async (transactionId) => {
 
         if (foundTransaction.type.toLowerCase() == "deposit") {
           dStat.textContent = 'Money Received'
-          dAmount.textContent = foundTransaction.amount 
+          dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dName.textContent = foundTransaction.sender 
-          dAmount2.textContent = foundTransaction.amount 
+          dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dFee.textContent = '0'
-          dTotal.textContent = foundTransaction.amount 
+          dTotal.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dTransactionType.textContent = foundTransaction.type 
           dStatus.textContent = foundTransaction.status
           dDate.textContent = convertDate(foundTransaction.date).realDate
           dTime.textContent = convertDate(foundTransaction.date).realTime
         } else if (foundTransaction.type.toLowerCase() == 'transfer') {
           dStat.textContent = 'Transaction Successful'
-          dAmount.textContent = foundTransaction.amount 
+          dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dName.textContent = foundTransaction.recipient 
-          dAmount2.textContent = foundTransaction.amount 
-          dFee.textContent = foundTransaction.fee
-          dTotal.textContent = foundTransaction.totalAmount 
+          dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+          dFee.textContent = foundTransaction.fee.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+          dTotal.textContent = foundTransaction.totalAmount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dTransactionType.textContent = foundTransaction.type 
           dStatus.textContent = foundTransaction.status
           dDate.textContent = convertDate(foundTransaction.date).realDate
           dTime.textContent = convertDate(foundTransaction.date).realTime
         } else if (foundTransaction.type.toLowerCase() == 'withdrawal') {
           dStat.textContent = 'Transaction Successful'
-          dAmount.textContent = foundTransaction.amount 
+          dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dName.textContent = foundTransaction.title 
-          dAmount2.textContent = foundTransaction.amount 
+          dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dFee.textContent = '0'
-          dTotal.textContent = foundTransaction.amount 
+          dTotal.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           dTransactionType.textContent = foundTransaction.type 
           dStatus.textContent = foundTransaction.status
           dDate.textContent = convertDate(foundTransaction.date).realDate
