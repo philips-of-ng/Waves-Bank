@@ -92,7 +92,16 @@ body {
 }
 
 
+.forgot-pw {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
+.forgot-pw a {
+  color: black;
+  font-weight: 500;
+}
 
 
 

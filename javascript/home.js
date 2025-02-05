@@ -242,7 +242,7 @@ onAuthStateChanged(auth, async (user) => {
           })
 
           olderContainer.innerHTML += `
-            <div    class="one-transaction" data-transaction-id="${transaction.transactionId}">
+            <div class="one-transaction" data-transaction-id="${transaction.transactionId}">
 
               <div class="left">
                 <a href="../pages/receipt.html?transactionId=${transaction.transactionId}">${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</a>
@@ -330,7 +330,7 @@ onAuthStateChanged(auth, async (user) => {
 
       if (groupedTransactions.today.length > 0) {
         container.innerHTML += `
-          <h3>Today's Transactions</h3>
+          <h5 class="fw-bold my-2">Today's Transactions</h5>
           <div id="${inOrOut}-today" class="white-container"></div>
         `;
         const todayContainer = document.getElementById(`${inOrOut}-today`);
@@ -451,7 +451,7 @@ const DisplayHomeTransactions = (transactions) => {
       })
 
       transactionsContainer.innerHTML += `
-        <div    class="one-transaction" data-transaction-id="${transaction.transactionId}">
+        <div class="one-transaction" data-transaction-id="${transaction.transactionId}">
 
           <div class="left">
             <p>${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient.slice(0, 1)}` : transaction.title.slice(0, 1)}</p>

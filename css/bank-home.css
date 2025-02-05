@@ -689,13 +689,15 @@ canvas {
 
 .one-set-item {
   height: 200px;
-  border: 2px solid green;
+  /* border: 2px solid green; */
+  border: none;
   text-align: start;
   display: flex;
   flex-direction: column;
   justify-content: end;
   gap: 15px;
   border-radius: 12px;
+  background-color: var(--the-lighter-blue);
 }
 
 .one-set-item i {
@@ -832,7 +834,7 @@ canvas {
   padding: 8px 20px;
   border-radius: 8px;
   background-color: red;
-  margin: 20px auto;
+  margin: 50px auto;
   display: block;
 }
 
