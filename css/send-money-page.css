@@ -55,10 +55,11 @@ body {
   text-align: center;
 }
 
-.top-div button {
+.top-div button, .top-div a {
   font-size: 20px;
   background-color: transparent;
   border: none;
+  color: black;
 }
 
 

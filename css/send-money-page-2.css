@@ -44,9 +44,10 @@ body {
   /* box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3); */
 }
 
-.top-div button {
+.top-div button, .top-div a {
   font-size: 20px;
   background-color: transparent;
+  color: black;
   border: none;
 }
 
