@@ -105,13 +105,15 @@ const sendMoneyPrep = (accountNumber, amount, purpose) => {
   try {
     universalTransactionDetails = { accountNumber, amount, purpose };
     const fee = 0.005 * amount, totalAmount = amount + fee;
+    if (amount < transactionLimits.minimum || amount > transactionLimits.maximum) {
+      throw new Error('Limit issues')
+    }
+    
     if (userData.balance < totalAmount) {
       console.log('INSUFFICIENT FUNDS');
       throw new Error('Insuficient funds')
     }
-    if (amount < transactionLimits.minimum || amount > transactionLimits.maximum) {
-      throw new Error('Limit issues')
-    }
+    
     document.getElementById('cAmount').textContent = amount;
     document.getElementById('cTo').textContent = `${UniversalFoundUserInfo.fullName} - ${UniversalFoundUserInfo.accountNumber} - Waves Bank`;
     document.getElementById('cFor').textContent = universalTransactionDetails.purpose;
