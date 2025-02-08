@@ -25,12 +25,22 @@ const usersColRef = collection(db, "users");
 // Extract URL Parameter
 const getURLParam = (param) => new URLSearchParams(window.location.search).get(param);
 
-let userData = null, UniversalFoundUserInfo = null, universalTransactionDetails = null, universalUserID = null;
+let userData = null, UniversalFoundUserInfo = null, universalTransactionDetails = null, universalUserID = null, universalGiverDoc = null;
 
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    try {
+      universalUserID = user.id
+    } catch (error) {
+      console.log('NO USER FOUND');
+      
+    }
+  }
+})
 
 const firstPage = document.getElementById('first-page')
 const secondPage = document.getElementById('second-page')
-
 
 function useState(initialValue) {
   let state = initialValue;
@@ -86,6 +96,7 @@ const fetchUserByAccountNumber = async (accountNumber) => {
 
     // Since accountNumber is unique, get the first (and only) document
     const userDoc = querySnap.docs[0];
+    universalGiverDoc = userDoc
     const foundUser = userDoc.data();
     UniversalFoundUserInfo = foundUser
 
@@ -127,8 +138,6 @@ const fetchUserByAccountNumber = async (accountNumber) => {
 // fetchUserByAccountNumber('0080795583')
 
 
-
-
 // ---------JS FOR THE SECOND VIEW
 
 const recipientDisplay2 = document.getElementById('rec-display-div-2')
@@ -148,5 +157,30 @@ function displayDetails() {
   </div>
 `
 }
+
+
+//JS FOR SENDING THE REQUEST
+
+const requestMoneyForm = document.getElementById('requestMoneyForm')
+
+requestMoneyForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  requestMoney()
+})
+
+const accountNumberInput = document.getElementById('')
+
+const requestMoney = async (giverAccountNumber, amount, purpose) => {
+
+  //find the giver's ref from the db
+  const giverRef = doc(db, 'users', universalGiverDoc.id)
+
+  console.log('This is the givers ref', giverRef);
+  
+  
+
+}
+
 
 
