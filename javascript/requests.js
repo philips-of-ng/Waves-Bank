@@ -117,3 +117,8 @@ onAuthStateChanged(auth, async (user) => {
     console.log("No user logged in.");
   }
 });
+
+const newReq = document.getElementById('new-req')
+newReq.addEventListener('click', () => {
+  window.location.href = '../pages/requestMoney.html'
+})
