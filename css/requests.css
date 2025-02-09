@@ -22,7 +22,9 @@ body {
   border: 5px solid green;
 }
 
-
+.requests-page h4 {
+  padding: 0px 12px;
+}
 
 
 .request-content ul {
@@ -78,3 +80,91 @@ body {
   border-radius: 15px;
 }
 
+
+
+
+
+.one-transaction:last-of-type {
+  border-bottom: none !important;
+}
+
+
+
+.one-transaction {
+  height: 70px;
+  width: 100%;
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--the-grey);
+}
+
+.one-transaction .left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.one-transaction .left > p, .one-transaction .left > a, .one-transaction .left button {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background-color: var(--the-lighter-blue);
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--the-blue);
+  text-decoration: none;
+  border: none;
+}
+
+.one-transaction .left > div p {
+  margin: 0;
+  margin-bottom: 3px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.one-transaction .left > div span {
+  color: var(--the-grey);
+  margin: 0;
+}
+
+.one-transaction .left {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.one-transaction .right .debit {
+  font-weight: 500;
+  color: black;
+  margin: 0;
+}
+
+.one-transaction .right .credit {
+  font-weight: 500;
+  color: rgb(25, 184, 50);
+  margin: 0;
+}
+
+.one-transaction .right .green-dot {
+ display: block;
+ height: 15px;
+ width: 15px;
+ background-color: rgb(25, 184, 50);
+ border-radius: 100%;
+}
+ 
+.one-transaction .right .red-dot {
+ display: block;
+ height: 15px;
+ width: 15px;
+ background-color: red;
+ border-radius: 100%;
+}
+ 

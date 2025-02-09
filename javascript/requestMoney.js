@@ -191,6 +191,8 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
       purpose: purpose,
       date: date,
       giverAccountNumber: giverAccountNumber,
+      giverName: UniversalFoundUserInfo.fullName, 
+      receiverName: userData.fullName,
       receiverAccountNumber: userData.accountNumber,
       granted: false
     }
@@ -201,6 +203,7 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
       purpose: requestObject.purpose,
       date: requestObject.date,
       giverAccountNumber: requestObject.giverAccountNumber,
+      giverName: requestObject.giverName,
       granted: false
     }
 
@@ -210,6 +213,7 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
       purpose: requestObject.purpose,
       date: requestObject.date,
       receiverAccountNumber: requestObject.receiverAccountNumber,
+      receiverName: requestObject.receiverName,
       granted: false
     }
 
@@ -230,10 +234,8 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
     // console.log(date);
     console.log('Request sent');
     
-    
   } catch (error) {
     console.log(error);
-    
   }
   
 }

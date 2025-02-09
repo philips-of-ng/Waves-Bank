@@ -37,9 +37,32 @@ const renderIncomingReq = () => {
 
   if (userData?.incomingRequests?.length > 0) {
     userData.incomingRequests.forEach((request) => {
+
+      const date = new Date(request.date)
+      const realTime = date.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      })
+      const realDate = date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit'
+      })
+
       incomingContainer.innerHTML += `
-        <div>
-          <p>${request.receiverAccountNumber}</p>
+        <div class="one-transaction" data-transaction-id="${request.requestId}">
+          <div class="left">
+            <button>${request.receiverName.slice(0, 1) || 'i'}</button>
+            <div>
+              <p>$${request.amount} request from ${request.receiverName}</p>
+              <span>${realTime} on ${realDate}</span>
+            </div>
+          </div>
+          <div class="right">
+            ${request.granted ? '<span class="green-dot"></span>' : '<span class="red-dot"></span>'}
+          </div>
         </div>
       `;
     });
@@ -60,14 +83,38 @@ const renderOutgoingReq = () => {
 
   if (userData?.outgoingRequests?.length > 0) {
     userData.outgoingRequests.forEach((request) => {
+
+      const date = new Date(request.date)
+      const realTime = date.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      })
+      const realDate = date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit'
+      })
+
       outgoingContainer.innerHTML += `
-        <div>
-          <p>${request.giverAccountNumber}</p>
+        <div class="one-transaction" data-transaction-id="${request.requestId}">
+          <div class="left">
+            <button>${request.giverName.slice(0, 1) || 'i'}</button>
+            <div>
+              <p>$${request.amount} request to ${request.giverName}</p>
+              <span>${realTime} on ${realDate}</span>
+            </div>
+          </div>
+          <div class="right">
+            ${request.granted ? '<span class="green-dot"></span>' : '<span class="red-dot"></span>'}
+          </div>
         </div>
       `;
+
     });
   } else {
-    outgoingContainer.innerHTML = "<p>No incoming requests</p>";
+    outgoingContainer.innerHTML = "<p>No outgoing requests</p>";
   }
 }
 
@@ -84,14 +131,42 @@ const renderPendingReq = () => {
   const pendingContainer = document.getElementById('pending')
   if (pendingReqs?.length > 0) {
     pendingReqs.forEach((request) => {
+
+
+
+      const date = new Date(request.date)
+      const realTime = date.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      })
+      const realDate = date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit'
+      })
+
       pendingContainer.innerHTML += `
-        <div>
-          <p>${request.giverAccountNumber || request.receiverAccountNumber}</p>
+        <div class="one-transaction" data-transaction-id="${request.requestId}">
+          <div class="left">
+            <button>${request.receiverName.slice(0, 1) || 'i'}</button>
+            <div>
+              <p>$${request.amount} request from ${request.receiverName}</p>
+              <span>${realTime} on ${realDate}</span>
+            </div>
+          </div>
+          <div class="right">
+            ${request.granted ? '<span class="green-dot"></span>' : '<span class="red-dot"></span>'}
+          </div>
         </div>
       `;
+
+
+
     });
   } else {
-    pendingContainer.innerHTML = "<p>No incoming requests</p>";
+    pendingContainer.innerHTML = "<p>No pending requests</p>";
   }
 }
 

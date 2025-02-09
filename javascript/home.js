@@ -229,10 +229,11 @@ onAuthStateChanged(auth, async (user) => {
 
         container.innerHTML += `
         <h5 class="mt-4 fw-bold">${monthYear}</h5>
-        <div class="white-container" id="olderContainer"></div>
+        <div class="white-container" id="olderContainer${monthYear}"></div>
         `;
 
-        const olderContainer = document.getElementById('olderContainer')
+        const olderContainer = document.getElementById(`olderContainer${monthYear}`)
+
         groupedTransactions.older[monthYear].forEach((transaction) => {
           const date = new Date(transaction.date)
           const realDate = date.toLocaleDateString(undefined, {
