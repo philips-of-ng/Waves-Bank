@@ -28,10 +28,12 @@ const getURLParam = (param) => new URLSearchParams(window.location.search).get(p
 let userData = null, UniversalFoundUserInfo = null, universalTransactionDetails = null, universalUserID = null, universalGiverDoc = null;
 
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     try {
-      universalUserID = user.id
+      universalUserID = user.uid
+      const docSnap = await getDoc(doc(usersColRef, universalUserID))
+      userData = docSnap.data()
     } catch (error) {
       console.log('NO USER FOUND');
       
@@ -162,24 +164,78 @@ function displayDetails() {
 //JS FOR SENDING THE REQUEST
 
 const requestMoneyForm = document.getElementById('requestMoneyForm')
+const amountInput = document.getElementById('amount')
+const purposeInput = document.getElementById('purpose')
 
 requestMoneyForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
-  requestMoney()
+  requestMoney(UniversalFoundUserInfo.accountNumber, amountInput.value, purposeInput.value)
 })
 
-const accountNumberInput = document.getElementById('')
+// const accountNumberInput = document.getElementById('')
 
 const requestMoney = async (giverAccountNumber, amount, purpose) => {
-
-  //find the giver's ref from the db
-  const giverRef = doc(db, 'users', universalGiverDoc.id)
-
-  console.log('This is the givers ref', giverRef);
+  try {
+    //get the ref of both parties
+    const giverRef = doc(db, 'users', universalGiverDoc.id)
+    const receiverRef = doc(db, 'users', universalUserID)
   
-  
+    //generate the transaction ID and date
+    const transactionId = 'txn_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+    const date = new Date().toISOString()
 
+    const requestObject = {
+      transactionId: transactionId,
+      amount: amount,
+      purpose: purpose,
+      date: date,
+      giverAccountNumber: giverAccountNumber,
+      receiverAccountNumber: userData.accountNumber,
+      granted: false
+    }
+
+    const receiver_requestObject = {
+      transactionId: requestObject.transactionId,
+      amount: requestObject.amount,
+      purpose: requestObject.purpose,
+      date: requestObject.date,
+      giverAccountNumber: requestObject.giverAccountNumber,
+      granted: false
+    }
+
+    const giver_requestObject = {
+      transactionId: requestObject.transactionId,
+      amount: requestObject.amount,
+      purpose: requestObject.purpose,
+      date: requestObject.date,
+      receiverAccountNumber: requestObject.receiverAccountNumber,
+      granted: false
+    }
+
+    console.log('RO', receiver_requestObject);
+    console.log('GO', giver_requestObject);
+    
+    
+
+    //pushing the request object to the receivers file
+    await updateDoc(receiverRef, {
+      outgoingRequests: arrayUnion(receiver_requestObject)
+    })
+
+    await updateDoc(giverRef, {
+      incomingRequests: arrayUnion(giver_requestObject)
+    })
+
+    // console.log(date);
+    console.log('Request sent');
+    
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+  
 }
 
 
