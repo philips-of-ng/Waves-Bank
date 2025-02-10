@@ -204,7 +204,8 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
       date: requestObject.date,
       giverAccountNumber: requestObject.giverAccountNumber,
       giverName: requestObject.giverName,
-      granted: false
+      granted: false,
+      sentByMe: true
     }
 
     const giver_requestObject = {
@@ -214,7 +215,8 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
       date: requestObject.date,
       receiverAccountNumber: requestObject.receiverAccountNumber,
       receiverName: requestObject.receiverName,
-      granted: false
+      granted: false,
+      sentByMe: false
     }
 
     console.log('RO', receiver_requestObject);

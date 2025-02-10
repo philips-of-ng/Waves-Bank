@@ -20,15 +20,21 @@ body {
   width: 100vw;
   height: 100vh;
   border: 5px solid green;
+  background-color: var(--the-lighter-blue);
+  padding: 0;
 }
 
 .requests-page h4 {
   padding: 0px 12px;
 }
 
+.request-content {
+  padding: 0;
+  width: 100%;
+}
 
 .request-content ul {
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: space-around;
   height: 60px;
@@ -65,19 +71,35 @@ body {
 }
 
 .myTabsContent {
-  height: 900px;
+  /* height: 900px; */
   width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
+  /* padding: 12px 0; */
+  background-color: white;
+  height: fit-content;
+  /* padding: 12px; */
+}
+
+.myTabsContent > div {
+  margin: 5px;
+  /* border: 2px solid red; */
+  border-radius: 12px;
+  padding: 12px;
 }
 
 .new-req {
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   margin: 0;
   position: fixed;
   bottom: 100px;
   right: 20px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
+  border-radius: 100%;
+  background-color: var(--the-blue);
+  color: white;
+  border: none;
+  font-size: 25px;
 }
 
 

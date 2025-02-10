@@ -120,55 +120,61 @@ const renderOutgoingReq = () => {
 
 
 const renderPendingReq = () => {
-  const allRequest = [...(userData.incomingRequests || []), ...(userData.outgoingRequests || [])]
+  if (!userData) return;
 
-  const arrangedByDate = allRequest.sort((a, b) => {
-    return new Date(b.date) - new Date(a.date)
-  })
+  const allRequest = [...(userData.incomingRequests || []), ...(userData.outgoingRequests || [])];
 
-  const pendingReqs = arrangedByDate.filter((request) => request.granted == false)
+  console.log('All the fvking requests', allRequest);
 
-  const pendingContainer = document.getElementById('pending')
-  if (pendingReqs?.length > 0) {
+  // Clone and sort the array to avoid mutating original data
+  const arrangedByDate = [...allRequest].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // Filter pending requests
+  const pendingReqs = arrangedByDate.filter((request) => request.granted === false);
+
+  console.log('Filtered pending reqs', pendingReqs);
+
+  const pendingContainer = document.getElementById('pending');
+  if (!pendingContainer) return; // Exit if element is missing
+
+  if (pendingReqs.length > 0) {
+    let htmlContent = "";
     pendingReqs.forEach((request) => {
-
-
-
-      const date = new Date(request.date)
+      const date = new Date(request.date);
       const realTime = date.toLocaleTimeString(undefined, {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
         hour12: true
-      })
+      });
       const realDate = date.toLocaleDateString(undefined, {
         year: 'numeric',
         month: 'short',
         day: '2-digit'
-      })
+      });
 
-      pendingContainer.innerHTML += `
+      htmlContent += `
         <div class="one-transaction" data-transaction-id="${request.requestId}">
           <div class="left">
-            <button>${request.receiverName.slice(0, 1) || 'i'}</button>
+            <button>${request.sentByMe ? request.giverName.slice(0, 1) : !request.sentByMe ? request.receiverName.slice(0, 1) : 'nil' }
+            </button>
+
             <div>
-              <p>$${request.amount} request from ${request.receiverName}</p>
+              <p>$${request.amount} request ${request.sentByMe ? 'to': !request.sentByMe ? 'from' : ''} ${request.sentByMe ? request.giverName : !request.sentByMe ? request.receiverName : ''}</p>
               <span>${realTime} on ${realDate}</span>
             </div>
           </div>
           <div class="right">
             ${request.granted ? '<span class="green-dot"></span>' : '<span class="red-dot"></span>'}
           </div>
-        </div>
-      `;
-
-
-
+        </div>`;
     });
+    pendingContainer.innerHTML = htmlContent; // Update the DOM once
   } else {
     pendingContainer.innerHTML = "<p>No pending requests</p>";
   }
-}
+};
+
 
 // Listen for auth state changes
 onAuthStateChanged(auth, async (user) => {
@@ -197,3 +203,5 @@ const newReq = document.getElementById('new-req')
 newReq.addEventListener('click', () => {
   window.location.href = '../pages/requestMoney.html'
 })
+
+
