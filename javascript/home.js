@@ -64,7 +64,12 @@ onAuthStateChanged(auth, async (user) => {
 
         const balanceElement = document.getElementById('balanceElement')
         const balanceElement2 = document.getElementById('balanceElement2')
-    
+        const totalAmountEl = document.getElementById('totalAmountSpent')
+
+        const totalAmountSpent = userData.transactions.reduce((total, txn) => total + Number(txn.amount), 0);
+
+        totalAmountEl.textContent = totalAmountSpent.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
         balanceElement2.textContent = `USD ${formattedBalance}`
 
         balanceElement.textContent = `USD ${formattedBalance}`

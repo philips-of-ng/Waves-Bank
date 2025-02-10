@@ -26,6 +26,7 @@ const usersColRef = collection(db, "users");
 const loginForm = document.getElementById('loginForm')
 const email = document.getElementById('email')
 const password = document.getElementById('password')
+const pwSwitch = document.getElementById('pwSwitch')
 
 
 function getDetails() {
@@ -89,4 +90,15 @@ function render() {
 
 // Initial render
 render();
+
+
+pwSwitch.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  if (password.type === 'text') {
+    password.type = 'password';
+  } else {
+    password.type = 'text';
+  }
+});
 
