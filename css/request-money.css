@@ -396,3 +396,24 @@ body {
 }
 
 
+
+.spinner {
+  /* width: 30px;
+  height: 30px;
+  display: flex;
+  border: 2px solid black; */
+  animation: spin 1s linear infinite;
+  margin: 0;
+  font-size: 20px;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+

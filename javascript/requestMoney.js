@@ -164,6 +164,7 @@ function displayDetails() {
 //JS FOR SENDING THE REQUEST
 
 const requestMoneyForm = document.getElementById('requestMoneyForm')
+const requestBtn = document.getElementById('requestBtn')
 const amountInput = document.getElementById('amount')
 const purposeInput = document.getElementById('purpose')
 
@@ -177,6 +178,7 @@ requestMoneyForm.addEventListener('submit', (e) => {
 
 const requestMoney = async (giverAccountNumber, amount, purpose) => {
   try {
+    requestBtn.innerHTML =  `<i class='bx bx-loader-alt spinner'></i>`
     //get the ref of both parties
     const giverRef = doc(db, 'users', universalGiverDoc.id)
     const receiverRef = doc(db, 'users', universalUserID)
@@ -187,7 +189,7 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
 
     const requestObject = {
       transactionId: transactionId,
-      amount: amount,
+      amount: Number(amount),
       purpose: purpose,
       date: date,
       giverAccountNumber: giverAccountNumber,
@@ -238,9 +240,25 @@ const requestMoney = async (giverAccountNumber, amount, purpose) => {
     
   } catch (error) {
     console.log(error);
+  } finally {
+    requestBtn.innerHTML = 'Request Sent!'
+
+    setTimeout(() => {
+      window.location.href = '../pages/requests.html'
+    }, 2000);
   }
   
 }
 
+
+const amountSuggest = document.querySelectorAll('.ad2 p')
+
+amountSuggest.forEach((suggestion) => {
+  suggestion.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    amountInput.value = suggestion.textContent
+  })
+})
 
 

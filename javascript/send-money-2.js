@@ -148,6 +148,7 @@ sendMoneyForm.addEventListener('submit', (e) => {
 });
 
 // Send Money Function
+
 const sendMoney = async (accountNumber, amount) => {
   try {
     verifyBtn.innerHTML = `<i class='bx bx-loader-alt spinner'></i>`
