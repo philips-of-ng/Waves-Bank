@@ -69,10 +69,11 @@ onAuthStateChanged(auth, (user) => {
   }
 })
 
-
+const warningText = document.getElementById('warningText')
 const verifyBtn = document.getElementById('verify')
 let failedAttempts = 0;
 const maxAttempts = 3;
+// let leftAttempts = maxAttempts - failedAttempts
 
 const verifyPin = async (enteredPin) => {
   if (enteredPin.length < 6) {
@@ -97,12 +98,19 @@ const verifyPin = async (enteredPin) => {
       failedAttempts = 0;
     } else {
       failedAttempts++;
-      alert('WRONG PIN');
+      // alert('WRONG PIN');
+      warningText.style.color = 'red'
+      warningText.textContent = `Wrong Pin! ${maxAttempts - failedAttempts} attempt${(maxAttempts - failedAttempts) > 1 ? 's' : ''} left... `
+      pin = ''
+      updateDots()
 
       if (failedAttempts >= maxAttempts) {
 
-        alert('Too many failed attempts. Logging out...');
-        signOut(auth);
+        warningText.textContent = 'Too many failed attempts. Logging out...'
+
+        setTimeout(() => {
+          signOut(auth);
+        }, 2000);
         failedAttempts = 0;
       }
     }

@@ -132,3 +132,18 @@ function render() {
 
 // Initial render
 render();
+
+
+const pwSwitch = document.getElementById('pwSwitch')
+pwSwitch.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  if (password.type === 'text') {
+    password.type = 'password';
+    pwSwitch.innerHTML = `<i class="bi bi-eye"></i>`;
+  } else {
+    password.type = 'text';
+    pwSwitch.innerHTML = `<i class="bi bi-eye-slash"></i>`;
+  }
+});
+

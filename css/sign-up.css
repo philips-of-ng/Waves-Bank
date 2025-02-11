@@ -84,6 +84,19 @@ body {
   border-bottom: 1.5px solid var(--the-grey);
 }
 
+.one-input-div div {
+  display: flex;
+  border-bottom: 1.5px solid var(--the-grey);
+}
+
+.one-input-div div button {
+  width: 100px;
+  border: none;
+  text-align: end;
+  font-size: 25px;
+  background-color: transparent;
+}
+
 .submit-div {
   /* margin-top: 50px; */
 }

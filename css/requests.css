@@ -19,13 +19,40 @@ body {
 .requests-page {
   width: 100vw;
   height: 100vh;
-  border: 5px solid green;
+  /* border: 5px solid green; */
   background-color: var(--the-lighter-blue);
   padding: 0;
 }
 
-.requests-page h4 {
-  padding: 0px 12px;
+.requests-page .top-div {
+  height: 60px;
+  width: 100%;
+  /* border: 2px solid rebeccapurple; */
+  /* background-color: white; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  /* position: sticky;
+  top: 5px; */
+  /* border-radius: 5px; */
+  padding: 10px;
+  /* box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3); */
+}
+
+.top-div h4 {
+  margin: 0;
+}
+
+/* .send-money-page h3 {
+  text-align: center;
+} */
+
+.top-div button, .top-div a {
+  font-size: 25px;
+  background-color: transparent;
+  border: none;
+  color: black;
 }
 
 .request-content {

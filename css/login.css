@@ -46,10 +46,12 @@ body {
   /* box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3); */
 }
 
-.top-div button {
+.top-div button, .top-div a {
   font-size: 20px;
   background-color: transparent;
   border: none;
+  color: black;
+  font-size: 25px;
 }
 
 .login-page .intro {
@@ -100,6 +102,7 @@ body {
   width: 100px;
   border: none;
   text-align: end;
+  font-size: 25px;
   background-color: transparent;
 }
 

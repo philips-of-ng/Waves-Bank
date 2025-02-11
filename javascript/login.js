@@ -24,6 +24,7 @@ const usersColRef = collection(db, "users");
 
 
 const loginForm = document.getElementById('loginForm')
+const warningText = document.getElementById('warningText')
 const email = document.getElementById('email')
 const password = document.getElementById('password')
 const pwSwitch = document.getElementById('pwSwitch')
@@ -50,6 +51,8 @@ const loginUser = async () => {
     console.log(response);
   } catch (error) {
     console.log('Error login in', error);
+    warningText.style.color = 'red'
+    warningText.innerHTML = 'Invalid Credentials'
   } finally {
     setSignInLoading(false)
   }
@@ -81,7 +84,7 @@ const loginBtn = document.getElementById('submit')
 function render() {
   if (getSignInLoading()) {
     loginBtn.innerHTML = `<i class='bx bx-loader-alt spinner'></i>`;
-    loginBtn.disabled = true;  
+    loginBtn.disabled = true;
   } else {
     loginBtn.innerHTML = 'Sign In';
     loginBtn.disabled = false;
@@ -97,8 +100,11 @@ pwSwitch.addEventListener('click', (e) => {
 
   if (password.type === 'text') {
     password.type = 'password';
+    pwSwitch.innerHTML = `<i class="bi bi-eye"></i>`;
   } else {
     password.type = 'text';
+    pwSwitch.innerHTML = `<i class="bi bi-eye-slash"></i>`;
   }
 });
+
 

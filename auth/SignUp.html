@@ -10,7 +10,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <title>Waves Bank - Sign Up</title>
 </head>
 
@@ -21,7 +23,7 @@
     <div class="top-div">
       <button><i class='bx bx-arrow-back'></i></button>
 
-      <button><i class='bx bx-question-mark' ></i></button>
+      <button><i class='bx bx-question-mark'></i></button>
     </div>
 
     <div class="form-div">
@@ -40,12 +42,12 @@
 
         <div class="one-input-div">
           <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" placeholder="johndoe@ymail.com" >
+          <input type="email" id="email" name="email" placeholder="johndoe@ymail.com">
         </div>
 
         <div class="one-input-div">
           <label for="phoneNumber">Phone number</label>
-          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+234 805 555 5555" >
+          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+234 805 555 5555">
         </div>
 
         <div class="one-input-div">
@@ -64,12 +66,19 @@
 
         <div class="one-input-div">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Create new password">
+
+          <div>
+            <input type="password" id="password" name="password" placeholder="Create new password">
+            <button id="pwSwitch">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
 
 
         <div class="submit-div">
-          <p>By submitting this application you confirm that you are authorized to share this information and agree with our Term and Conditions</p>
+          <p>By submitting this application you confirm that you are authorized to share this information and agree with
+            our Term and Conditions</p>
 
           <button id="submit" type="submit" class="gs">Sign up</button>
 

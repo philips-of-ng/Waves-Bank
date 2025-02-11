@@ -48,11 +48,13 @@ onAuthStateChanged(auth, async (user) => {
         console.log('Transactions from user data:', userData.transactions);
 
         const sortTransactionsByDate = (array) => {
-          const sortedByDate = array.sort((a, b) => {
-            return new Date(b.date) - new Date(a.date)
-          })
-
-          return sortedByDate
+          if (Array.isArray(array) && array.length > 0) {
+            const sortedByDate = array.sort((a, b) => {
+              return new Date(b.date) - new Date(a.date)
+            })
+            return sortedByDate
+          }
+          
         }
 
 
@@ -66,9 +68,9 @@ onAuthStateChanged(auth, async (user) => {
         const balanceElement2 = document.getElementById('balanceElement2')
         const totalAmountEl = document.getElementById('totalAmountSpent')
 
-        const totalAmountSpent = userData.transactions.reduce((total, txn) => total + Number(txn.amount), 0);
+        const totalAmountSpent = userData.transactions?.reduce((total, txn) => total + Number(txn.amount), 0);
 
-        totalAmountEl.textContent = totalAmountSpent.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        totalAmountEl.textContent = totalAmountSpent?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
         balanceElement2.textContent = `USD ${formattedBalance}`
 
