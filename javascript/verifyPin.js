@@ -93,8 +93,12 @@ const verifyPin = async (enteredPin) => {
     const isMatch = (originalPin == enteredPin);
 
     if (isMatch) {
-      alert('PIN VERIFIED');
-      window.location.href = "../pages/BankHome.html"
+      // alert('PIN VERIFIED');
+      warningText.style.color = 'green'
+      warningText.textContent = 'Pin Verified!'
+      setTimeout(() => {
+        window.location.href = "../pages/BankHome.html"
+      }, 2000);
       failedAttempts = 0;
     } else {
       failedAttempts++;

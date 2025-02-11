@@ -154,12 +154,17 @@ const incomingPopUp = (request) => {
       sendBtn.addEventListener('click', async () => {
         sendBtn.innerHTML =  `<i class='bx bx-loader-alt spinner'></i>`
         await sendMoney(request.receiverAccountNumber, request.amount, request.transactionId)
-
         sendBtn.innerHTML = `Request Accepted!`
+        setTimeout(() => {
+          sendBtn.innerHTML = `View Receipt`
+          sendBtn.addEventListener('click', () => {
+            window.location.href = `../pages/receipt.html?transactionId=${request.transactionId}`
+          })
+        }, 2000);
       })
     }
   } else {
-    console.log('alredy granted');
+    console.log('already granted');
 
     RMI_main.innerHTML = `
       <h6>Request Completed.</h6>

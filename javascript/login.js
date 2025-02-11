@@ -45,8 +45,12 @@ const loginUser = async () => {
     const { email, password } = getDetails()
     const response = await signInWithEmailAndPassword(auth, email, password)
     if (response.user) {
-      alert('Sign in successful')
-      window.location.href = '../auth/VerifyPin.html'
+      warningText.style.color = 'green'
+      warningText.textContent = 'Signing in... please wait'
+
+      setTimeout(() => {
+        window.location.href = '../auth/VerifyPin.html'
+      }, 2000);
     }
     console.log(response);
   } catch (error) {

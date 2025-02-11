@@ -61,6 +61,9 @@ const convertDate = theDate => {
   return { realDate, realTime }
 }
 
+const loadDiv = document.getElementById('load-div')
+const mainDiv = document.getElementById('main-div')
+
 const getTransactionDetails = async (transactionId) => {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -81,44 +84,50 @@ const getTransactionDetails = async (transactionId) => {
         );
 
 
-        if (foundTransaction.type.toLowerCase() == "deposit") {
-          dStat.textContent = 'Money Received'
-          dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dName.textContent = foundTransaction.sender 
-          dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dFee.textContent = '0'
-          dTotal.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dTransactionType.textContent = foundTransaction.type 
-          dStatus.textContent = foundTransaction.status
-          dDate.textContent = convertDate(foundTransaction.date).realDate
-          dTime.textContent = convertDate(foundTransaction.date).realTime
-        } else if (foundTransaction.type.toLowerCase() == 'transfer') {
-          dStat.textContent = 'Transaction Successful'
-          dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dName.textContent = foundTransaction.recipient 
-          dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dFee.textContent = foundTransaction.fee.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dTotal.textContent = foundTransaction.totalAmount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dTransactionType.textContent = foundTransaction.type 
-          dStatus.textContent = foundTransaction.status
-          dDate.textContent = convertDate(foundTransaction.date).realDate
-          dTime.textContent = convertDate(foundTransaction.date).realTime
-        } else if (foundTransaction.type.toLowerCase() == 'withdrawal') {
-          dStat.textContent = 'Transaction Successful'
-          dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dName.textContent = foundTransaction.title 
-          dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dFee.textContent = '0'
-          dTotal.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          dTransactionType.textContent = foundTransaction.type 
-          dStatus.textContent = foundTransaction.status
-          dDate.textContent = convertDate(foundTransaction.date).realDate
-          dTime.textContent = convertDate(foundTransaction.date).realTime
-        }
-
         if (foundTransaction) {
           console.log("Found transaction:", foundTransaction);
+          setTimeout(() => {
+            loadDiv.classList.add('hidden')
+            mainDiv.classList.remove('hidden')
+          }, 2000);
+
+          if (foundTransaction.type.toLowerCase() == "deposit") {
+            dStat.textContent = 'Money Received'
+            dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dName.textContent = foundTransaction.sender
+            dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dFee.textContent = '0'
+            dTotal.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dTransactionType.textContent = foundTransaction.type
+            dStatus.textContent = foundTransaction.status
+            dDate.textContent = convertDate(foundTransaction.date).realDate
+            dTime.textContent = convertDate(foundTransaction.date).realTime
+          } else if (foundTransaction.type.toLowerCase() == 'transfer') {
+            dStat.textContent = 'Transaction Successful'
+            dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dName.textContent = foundTransaction.recipient
+            dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dFee.textContent = foundTransaction.fee.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dTotal.textContent = foundTransaction.totalAmount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dTransactionType.textContent = foundTransaction.type
+            dStatus.textContent = foundTransaction.status
+            dDate.textContent = convertDate(foundTransaction.date).realDate
+            dTime.textContent = convertDate(foundTransaction.date).realTime
+          } else if (foundTransaction.type.toLowerCase() == 'withdrawal') {
+            dStat.textContent = 'Transaction Successful'
+            dAmount.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dName.textContent = foundTransaction.title
+            dAmount2.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dFee.textContent = '0'
+            dTotal.textContent = foundTransaction.amount.toFixed(2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            dTransactionType.textContent = foundTransaction.type
+            dStatus.textContent = foundTransaction.status
+            dDate.textContent = convertDate(foundTransaction.date).realDate
+            dTime.textContent = convertDate(foundTransaction.date).realTime
+          }
+
         } else {
+
           console.log("No transaction with the given ID was found");
         }
       } catch (error) {
