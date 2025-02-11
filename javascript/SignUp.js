@@ -92,8 +92,11 @@ const createAccount = async () => {
     const docRef = doc(usersColRef, response.user.uid);
     await setDoc(docRef, payLoad);
 
-    alert("Account created successfully!");
-    window.location.href = '../auth/createPin.html'
+    // alert("Account created successfully!");
+    signUpBtn.innerHTML = 'Account Created!'
+    setTimeout(() => {
+      window.location.href = '../auth/createPin.html'
+    }, 2000);
   } catch (error) {
     console.error("Error creating user account:", error);
     alert(`Error: ${error.message}`);

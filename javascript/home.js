@@ -70,7 +70,9 @@ onAuthStateChanged(auth, async (user) => {
 
         const totalAmountSpent = userData.transactions?.reduce((total, txn) => total + Number(txn.amount), 0);
 
-        totalAmountEl.textContent = totalAmountSpent?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        // totalAmountEl.textContent = `$${ || 'No data available for now'}`
+
+        totalAmountEl.textContent = `${totalAmountSpent ? '$' + totalAmountSpent?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'No data available'}`
 
         balanceElement2.textContent = `USD ${formattedBalance}`
 

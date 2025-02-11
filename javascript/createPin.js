@@ -27,6 +27,9 @@ const usersColRef = collection(db, "users");
 // ----------------------------------
 
 let userData = null
+
+const warningText = document.getElementById('warningText')
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userData = user
@@ -39,8 +42,12 @@ onAuthStateChanged(auth, (user) => {
         await updateDoc(docRef, {
           pin: pin
         })
-        alert('Pin set successfully.')
-        window.location.href = '../pages/BankHome.html'
+        // alert('Pin set successfully.')
+        warningText.style.color = 'green'
+        warningText.innerHTML = 'Pin Set Successfully!'
+        setTimeout(() => {
+          window.location.href = '../pages/BankHome.html'
+        }, 2000);
 
       } catch (error) {
         console.log('Error setting new pin', error);

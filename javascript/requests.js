@@ -152,7 +152,7 @@ const incomingPopUp = (request) => {
 
     if (sendBtn) {
       sendBtn.addEventListener('click', async () => {
-        sendBtn.innerHTML =  `<i class='bx bx-loader-alt spinner'></i>`
+        sendBtn.innerHTML = `<i class='bx bx-loader-alt spinner'></i>`
         await sendMoney(request.receiverAccountNumber, request.amount, request.transactionId)
         sendBtn.innerHTML = `Request Accepted!`
         setTimeout(() => {
@@ -204,6 +204,14 @@ const incomingPopUp = (request) => {
 
 
 
+const sortRequestsByDate = (array) => {
+  const sortedByDate = array.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date)
+  })
+
+  return sortedByDate
+}
+
 // Function to render incoming requests
 const renderIncomingReq = () => {
   const incomingContainer = document.getElementById("incoming");
@@ -216,7 +224,7 @@ const renderIncomingReq = () => {
   incomingContainer.innerHTML = ""; // Clear previous content
 
   if (userData?.incomingRequests?.length > 0) {
-    userData.incomingRequests.forEach((request) => {
+    sortRequestsByDate(userData.incomingRequests).forEach((request) => {
 
       const date = new Date(request.date)
       const realTime = date.toLocaleTimeString(undefined, {
@@ -271,7 +279,7 @@ const renderOutgoingReq = () => {
   outgoingContainer.innerHTML = ""; // Clear previous content
 
   if (userData?.outgoingRequests?.length > 0) {
-    userData.outgoingRequests.forEach((request) => {
+    sortRequestsByDate(userData.outgoingRequests).forEach((request) => {
 
       const date = new Date(request.date)
       const realTime = date.toLocaleTimeString(undefined, {
@@ -328,7 +336,7 @@ const renderPendingReq = () => {
 
   if (pendingReqs.length > 0) {
     let htmlContent = "";
-    pendingReqs.forEach((request) => {
+    sortRequestsByDate(pendingReqs).forEach((request) => {
       const date = new Date(request.date);
       const realTime = date.toLocaleTimeString(undefined, {
         hour: '2-digit',
