@@ -82,7 +82,7 @@ const verifyPin = async (enteredPin) => {
   }
 
   console.log('Pin:', enteredPin);
-  console.log(auth.currentUser.uid);
+  // console.log(auth.currentUser.uid);
   try {
     const docSnap = await getDoc(doc(usersColRef, userUID));
     const originalPin = docSnap.data().pin;

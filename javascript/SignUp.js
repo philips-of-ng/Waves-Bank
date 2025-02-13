@@ -49,19 +49,21 @@ const getDetails = () => {
   };
 };
 
-const generateAccountNumber = async () => {
+const generateAccountNumberAndUsername = async () => {
   const prefix = '00'
   const randomNumber = Math.floor(Math.random() * 90000000) + 10000000;
   const accountNumber = prefix + randomNumber.toString()
+  const firstName = getDetails().fullName.trim().split(" ")[0]
+  const userName = firstName.toLowerCase() + "_" + accountNumber.substring(0, 4)
 
   const q = query(usersColRef, where('accountNumber', '==', accountNumber))
   const querySnap = await getDocs(q)
 
   if (!querySnap.empty) {
-    return generateAccountNumber()
+    return generateAccountNumberAndUsername()
   }
 
-  return accountNumber
+  return {accountNumber, userName}
 }
 
 // Create a New Account
@@ -77,7 +79,7 @@ const createAccount = async () => {
     const response = await createUserWithEmailAndPassword(auth, email, password);
     console.log("Response from creating account:", response);
 
-    const accountNumber = await generateAccountNumber()
+    const {accountNumber, userName} = await generateAccountNumberAndUsername()
 
     // Save additional user information in Firestore
     const payLoad = {
@@ -87,6 +89,7 @@ const createAccount = async () => {
       nationality,
       gender,
       accountNumber,
+      userName,
       balance: 500
     }
     const docRef = doc(usersColRef, response.user.uid);

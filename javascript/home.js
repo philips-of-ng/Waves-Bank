@@ -404,9 +404,11 @@ onAuthStateChanged(auth, async (user) => {
     const cardTransContainer = document.getElementById('card-transactions')
     console.log('Ready to render card transactions', readyCardTransactions);
 
-    readyCardTransactions.forEach((transaction) => {
+    sortTransactionsByDate(readyCardTransactions).forEach((transaction) => {
       const date = new Date(transaction.date);
-      const realTime = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+      const realTime = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+      const realDate = date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' })
+
 
       cardTransContainer.innerHTML += `
         <div class="one-transaction" data-transaction-id="${transaction.transactionId}">
@@ -414,7 +416,7 @@ onAuthStateChanged(auth, async (user) => {
             <a href="../pages/receipt.html?transactionId=${transaction.transactionId}">${transaction.type.toLowerCase() === 'transfer' ? `${transaction.recipient?.slice(0, 1)}` : transaction.type.toLowerCase() === 'deposit' ? `${transaction.title.slice(0, 1)}` : transaction.title?.slice(0, 1)}</a>
             <div>
               <p>${transaction.title}</p>
-              <span>${realTime}</span>
+              <span>${realTime} on ${realDate}</span>
             </div>
           </div>
           <div class="right">
