@@ -8,6 +8,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+  max-width: 600px !important;
 }
 
 body {
@@ -48,7 +49,8 @@ body {
   text-align: center;
 } */
 
-.top-div button, .top-div a {
+.top-div button,
+.top-div a {
   font-size: 25px;
   background-color: transparent;
   border: none;
@@ -92,7 +94,7 @@ body {
   background-color: transparent;
 }
 
-.request-content ul li > .active {
+.request-content ul li>.active {
   background-color: var(--the-light-blue) !important;
   color: white !important;
 }
@@ -107,7 +109,7 @@ body {
   /* padding: 12px; */
 }
 
-.myTabsContent > div {
+.myTabsContent>div {
   margin: 5px;
   /* border: 2px solid red; */
   border-radius: 12px;
@@ -133,6 +135,7 @@ body {
 .hidden {
   display: none !important;
 }
+
 .req-modal {
   height: 100vh;
   width: 100vw;
@@ -172,13 +175,13 @@ body {
   background-color: transparent;
 }
 
-.rmi-main > p {
+.rmi-main>p {
   font-size: 14px;
   text-align: center;
   color: red;
 }
 
-.rmi-main > h6 {
+.rmi-main>h6 {
   text-align: center;
   color: green;
   margin-bottom: 20px;
@@ -244,7 +247,9 @@ body {
   gap: 8px;
 }
 
-.one-transaction .left > p, .one-transaction .left > a, .one-transaction .left button {
+.one-transaction .left>p,
+.one-transaction .left>a,
+.one-transaction .left button {
   width: 55px;
   height: 55px;
   display: flex;
@@ -259,14 +264,14 @@ body {
   border: none;
 }
 
-.one-transaction .left > div p {
+.one-transaction .left>div p {
   margin: 0;
   margin-bottom: 3px;
   font-size: 17px;
   font-weight: 500;
 }
 
-.one-transaction .left > div span {
+.one-transaction .left>div span {
   color: var(--the-grey);
   margin: 0;
 }
@@ -290,21 +295,21 @@ body {
 }
 
 .one-transaction .right .green-dot {
- display: block;
- height: 15px;
- width: 15px;
- background-color: rgb(25, 184, 50);
- border-radius: 100%;
+  display: block;
+  height: 15px;
+  width: 15px;
+  background-color: rgb(25, 184, 50);
+  border-radius: 100%;
 }
- 
+
 .one-transaction .right .red-dot {
- display: block;
- height: 15px;
- width: 15px;
- background-color: red;
- border-radius: 100%;
+  display: block;
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  border-radius: 100%;
 }
- 
+
 
 
 .spinner {
@@ -318,9 +323,8 @@ body {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
-
-

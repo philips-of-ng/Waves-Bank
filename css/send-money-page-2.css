@@ -20,6 +20,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+  max-width: 600px !important;
 }
 
 body {
@@ -44,7 +45,8 @@ body {
   /* box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3); */
 }
 
-.top-div button, .top-div a {
+.top-div button,
+.top-div a {
   font-size: 20px;
   background-color: transparent;
   color: black;
@@ -240,11 +242,11 @@ body {
   text-align: center;
 }
 
-.pin-top > p:nth-of-type(1) {
+.pin-top>p:nth-of-type(1) {
   font-size: 20px;
 }
 
-.pin-top > p:nth-of-type(2) {
+.pin-top>p:nth-of-type(2) {
   font-size: 15px;
 }
 
@@ -266,7 +268,7 @@ body {
 
 .pin-input .dot {
   display: block;
-  height:   25px;
+  height: 25px;
   width: 25px;
   /* border: 1px solid green; */
   border-radius: 100%;
@@ -324,12 +326,12 @@ body {
   padding: 20px 12px;
 }
 
-.wm-content > div {
+.wm-content>div {
   border-top: 1px solid var(--the-grey);
   padding-top: 15px;
 }
 
-.wm-content > div .close-btn {
+.wm-content>div .close-btn {
   padding: 8px 20px;
   border: none;
   border-radius: 12px;
@@ -337,7 +339,7 @@ body {
   color: white;
 }
 
-.wm-content > div .home {
+.wm-content>div .home {
   padding: 8px 20px;
   border: none;
   border-radius: 12px;
@@ -373,6 +375,7 @@ body {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }

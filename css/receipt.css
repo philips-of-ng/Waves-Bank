@@ -8,11 +8,12 @@
 * {
   box-sizing: border-box;
   font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+  max-width: 600px !important;
 }
 
 body {
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .receipt-page {
@@ -139,7 +140,7 @@ body {
   margin: 1px 0;
 }
 
-.one-det > span {
+.one-det>span {
   font-weight: 500;
   color: var(--the-grey);
 }
@@ -200,6 +201,7 @@ body {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }

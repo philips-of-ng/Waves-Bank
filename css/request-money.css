@@ -8,11 +8,12 @@
 * {
   box-sizing: border-box;
   font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+  max-width: 600px !important;
 }
 
 body {
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .send-money-page {
@@ -55,7 +56,8 @@ body {
   text-align: center;
 }
 
-.top-div button, .top-div a {
+.top-div button,
+.top-div a {
   font-size: 20px;
   background-color: transparent;
   border: none;
@@ -81,7 +83,8 @@ body {
   /* border: 2px solid green; */
 }
 
-.acc-num-div label input, .acc-num-div label select {
+.acc-num-div label input,
+.acc-num-div label select {
   width: 100%;
   padding: 15px 10px;
   /* pointer-events: none; */
@@ -207,6 +210,7 @@ body {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -264,7 +268,8 @@ body {
   /* box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3); */
 }
 
-.top-div button, .top-div a {
+.top-div button,
+.top-div a {
   font-size: 20px;
   background-color: transparent;
   color: black;
@@ -412,8 +417,8 @@ body {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
-

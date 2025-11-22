@@ -8,11 +8,12 @@
 * {
   box-sizing: border-box;
   font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
+  max-width: 600px !important;
 }
 
 body {
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .home-page {
@@ -72,6 +73,7 @@ body {
   border: none;
   background-color: transparent !important;
 }
+
 .bottom-nav ul li .active i {
   color: var(--the-blue);
   font-size: 40px;
@@ -85,7 +87,7 @@ body {
 }
 
 .bottom-nav ul li button i {
- color: var(--the-light-blue);
+  color: var(--the-light-blue);
 }
 
 .bottom-nav ul li button {
@@ -136,9 +138,7 @@ body {
   align-items: center;
 }
 
-.bal {
-
-}
+.bal {}
 
 .bal h3 {
   font-weight: 500;
@@ -198,12 +198,12 @@ body {
   border-radius: 10px; */
 }
 
-.history > p {
+.history>p {
   font-weight: bold;
   font-size: 18px;
 }
 
-.history > div {
+.history>div {
   /* height: 400px; */
   /* border: 2px solid green; */
   border-radius: 20px;
@@ -217,7 +217,7 @@ body {
 } */
 
 .one-transaction:last-of-type {
- border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 .one-transaction {
@@ -237,7 +237,8 @@ body {
   gap: 8px;
 }
 
-.one-transaction .left > p, .one-transaction .left > a {
+.one-transaction .left>p,
+.one-transaction .left>a {
   width: 55px;
   height: 55px;
   display: flex;
@@ -251,14 +252,14 @@ body {
   text-decoration: none;
 }
 
-.one-transaction .left > div p {
+.one-transaction .left>div p {
   margin: 0;
   margin-bottom: 3px;
   font-size: 17px;
   font-weight: 500;
 }
 
-.one-transaction .left > div span {
+.one-transaction .left>div span {
   color: var(--the-grey);
   margin: 0;
 }
@@ -285,7 +286,7 @@ body {
   margin: 30px 0;
 }
 
-.chart-sec > p {
+.chart-sec>p {
   font-weight: 600;
   font-size: 20px;
 }
@@ -318,11 +319,13 @@ body {
   font-size: 18px;
   margin: 0;
 }
+
 .cc-left span {
   color: var(--the-grey);
   margin: 12px 0;
   display: block;
 }
+
 .cc-left h2 {
   font-weight: 600;
 }
@@ -367,9 +370,7 @@ canvas {
 /* ------CSS FOR THE TRANSACTION HISORY PART ------*/
 /* ------CSS FOR THE TRANSACTION HISORY PART ------*/
 
-.trans-history-content {
-
-}
+.trans-history-content {}
 
 .trans-history-content ul {
   width: 100%;
@@ -407,7 +408,7 @@ canvas {
   background-color: transparent;
 }
 
-.trans-history-content ul li > .active {
+.trans-history-content ul li>.active {
   background-color: var(--the-light-blue) !important;
   color: white !important;
 }
@@ -419,7 +420,7 @@ canvas {
   border-radius: 20px;
 }
 
-.white-container > div:last-of-type {
+.white-container>div:last-of-type {
   border-bottom: none !important;
 }
 
@@ -433,6 +434,7 @@ canvas {
 .card-tab-content {
   background-color: white;
 }
+
 .card-top {
   width: 100%;
   /* border: 2px solid red; */
@@ -449,7 +451,7 @@ canvas {
   padding: 15px 12px;
 }
 
-.card-board > p {
+.card-board>p {
   color: white;
   letter-spacing: 7px;
   margin: 35px 0;
@@ -525,7 +527,7 @@ canvas {
   display: flex;
   align-items: center;
   gap: 8px;
-  
+
 }
 
 .one-card-el .left .ll button {
@@ -549,6 +551,7 @@ canvas {
 .one-card-el .left .lr span {
   color: gray;
 }
+
 .one-card-el .left .lr p {
   margin: 0;
   font-size: 18px;
@@ -578,6 +581,7 @@ canvas {
 .profile-part {
   background-color: white;
 }
+
 .profile-card {
   width: 100%;
   /* border: 2px solid green; */
@@ -614,13 +618,13 @@ canvas {
   margin: 20px 0;
 }
 
-.the-tabs > div ul {
+.the-tabs>div ul {
   /* border: 2px solid red; */
   display: flex;
   justify-content: space-between;
 }
 
-.the-tabs > div ul li {
+.the-tabs>div ul li {
   flex: 1;
   text-align: center;
   display: flex;
@@ -628,7 +632,7 @@ canvas {
   justify-content: center;
 }
 
-.the-tabs > div ul li button {
+.the-tabs>div ul li button {
   width: 100%;
   background-color: transparent !important;
   border: none;
@@ -636,14 +640,14 @@ canvas {
   font-weight: 500;
 }
 
-.the-tabs > div ul li button:hover {
+.the-tabs>div ul li button:hover {
   color: black !important;
   color: black !important;
   box-shadow: none;
   border: none;
 }
 
-.the-tabs > div ul li .active {
+.the-tabs>div ul li .active {
   background-color: transparent;
   border: none !important;
   border-bottom: 3px solid var(--the-blue) !important;
@@ -653,7 +657,7 @@ canvas {
   margin-bottom: 20px;
 }
 
-.one-pp-sec > p {
+.one-pp-sec>p {
   color: var(--the-grey);
   font-size: 14px;
   /* border: 2px solid red; */
@@ -672,6 +676,7 @@ canvas {
 .one-pp-item span {
   color: grey;
 }
+
 .one-pp-item p {
   margin: 0;
   font-weight: 500;
@@ -754,7 +759,7 @@ canvas {
   padding: 12px;
 }
 
-.em-main > form > .one-edit-input {
+.em-main>form>.one-edit-input {
   /* border: 2px solid red; */
   margin: 20px 0;
 }
@@ -764,6 +769,7 @@ canvas {
   font-size: 14px;
   margin: 0;
 }
+
 .one-edit-input input {
   width: 100%;
   padding: 10px 0;
@@ -868,6 +874,7 @@ canvas {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }
